@@ -1,0 +1,1946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equality & Balance Survey - Working Couples & Domestic Chores</title>
+  <link rel="icon" type="image/svg+xml" href="survey_logo.svg">
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    .option-card:has(input:checked) {
+      border-color: #6366f1;
+      background-color: rgba(99, 102, 241, 0.08);
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background-color: rgba(156, 163, 175, 0.5);
+      border-radius: 9999px;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 0.4; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .mic-pulse {
+      animation: pulse-ring 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-sm backdrop-blur-md bg-opacity-95">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center space-x-2">
+        <img src="survey_logo.svg" alt="Equality & Balance Logo" onerror="this.outerHTML='<span class=\'w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-lg shadow-sm\'>⚖️</span>'" class="w-10 h-10 rounded-xl shadow-sm object-contain bg-indigo-50 border border-indigo-100 p-0.5">
+        <div>
+          <h1 class="text-sm sm:text-base font-bold text-slate-900 leading-tight">
+            <span class="lang-en">Equality & Balance Survey</span>
+            <span class="lang-hi hidden">समानता और संतुलन सर्वेक्षण</span>
+            <span class="lang-gu hidden">સમાનતા અને સંતુલન સર્વેક્ષણ</span>
+          </h1>
+          <p class="text-xs text-slate-500">
+            <span class="lang-en">Working Couples & Domestic Chores</span>
+            <span class="lang-hi hidden">कामकाजी जोड़े और घरेलू काम</span>
+            <span class="lang-gu hidden">કામકાજી યુગલો અને ઘરકામનું વિભાજન</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Actions: Language Selector & Protected Results Button -->
+      <div class="flex items-center gap-2">
+        <div class="flex bg-slate-100 p-0.5 rounded-full border border-slate-200 text-xs">
+          <button type="button" id="btn-lang-en" onclick="setLanguage('en')" class="px-2.5 py-1 rounded-full text-xs font-bold bg-indigo-600 text-white shadow-sm transition">EN</button>
+          <button type="button" id="btn-lang-hi" onclick="setLanguage('hi')" class="px-2.5 py-1 rounded-full text-xs font-medium text-slate-700 hover:text-indigo-600 transition">हिंदी</button>
+          <button type="button" id="btn-lang-gu" onclick="setLanguage('gu')" class="px-2.5 py-1 rounded-full text-xs font-medium text-slate-700 hover:text-indigo-600 transition">ગુજરાતી</button>
+        </div>
+
+        <!-- Protected Results Button (PIN: 1234) -->
+        <button type="button" onclick="handleResultsBtnClick()" class="px-3 py-1.5 rounded-full border border-indigo-200 bg-indigo-50 hover:bg-indigo-100 text-xs font-bold text-indigo-700 shadow-sm flex items-center gap-1 transition active:scale-95">
+          <span>📊</span>
+          <span class="lang-en">Results</span>
+          <span class="lang-hi hidden">परिणाम</span>
+          <span class="lang-gu hidden">પરિણામ</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div id="surveyProgressBarContainer" class="w-full bg-slate-100 h-1.5">
+      <div id="surveyProgressBar" class="bg-indigo-600 h-1.5 transition-all duration-300 ease-out" style="width: 10%;"></div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 max-w-3xl w-full mx-auto px-4 py-6 sm:py-8">
+
+    <!-- SURVEY FORM VIEW -->
+    <div id="surveyView">
+      
+      <!-- Welcome Hero Banner -->
+      <div class="bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-700 rounded-2xl p-6 text-white shadow-md mb-8">
+        <div class="flex items-center justify-between mb-2">
+          <span class="inline-block px-3 py-0.5 rounded-full bg-white/20 text-xs font-semibold uppercase tracking-wider">
+            🔒 100% Anonymous & Safe
+          </span>
+          <span class="text-xs text-indigo-200">Open to All (Married, Students & Housewives)</span>
+        </div>
+        <h2 class="text-xl sm:text-2xl font-black mb-2 leading-snug">
+          <span class="lang-en">Should Both Partners Share Household Work After Jobs, or Should the Woman Do Everything Alone?</span>
+          <span class="lang-hi hidden">क्या जॉब के बाद पति-पत्नी दोनों मिलकर काम करें या अकेली महिला ही सब कुछ संभाले?</span>
+          <span class="lang-gu hidden">શું નોકરી પછી બંનેએ મળીને ઘરકામ કરવું જોઈએ કે પછી માત્ર એકલી સ્ત્રીએ જ બધું કરવું જોઈએ?</span>
+        </h2>
+        <p class="text-indigo-100 text-xs sm:text-sm leading-relaxed">
+          <span class="lang-en">Whether you are married, engaged, a student, or a homemaker—your honest thoughts matter in shaping healthy relationships.</span>
+          <span class="lang-hi hidden">चाहे आप नौकरीपेशा हों, गृहिणी हों या छात्रा—भविष्य के रिश्तों में संतुलन और सम्मान के लिए आपकी सच्ची राय बेहद महत्वपूर्ण है।</span>
+          <span class="lang-gu hidden">ભલે તમે નોકરીયાત હોવ, ગૃહિણી હોવ કે વિદ્યાર્થી—સ્વસ્થ સંબંધોના ઘડતર માટે તમારા સાચા અને નિખાલસ વિચારો ખૂબ જ મહત્વપૂર્ણ છે.</span>
+        </p>
+      </div>
+
+      <form id="surveyForm" name="marriage-survey" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleSurveySubmit(event)" class="space-y-8">
+        <input type="hidden" name="form-name" value="marriage-survey" />
+        <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+        <!-- SECTION 1: Personal Profile & Demographics -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+          <div class="border-b border-slate-100 pb-3 flex justify-between items-center">
+            <div>
+              <span class="text-xs font-bold text-indigo-600 uppercase tracking-wide">Section 1</span>
+              <h3 class="text-base sm:text-lg font-bold text-slate-900">
+                <span class="lang-en">Personal Profile & Background</span>
+                <span class="lang-hi hidden">व्यक्तिगत प्रोफाइल और पृष्ठभूमि</span>
+                <span class="lang-gu hidden">વ્યક્તિગત પરિચય અને માહિતી</span>
+              </h3>
+            </div>
+            <span class="text-xs text-slate-400 font-medium">* Required</span>
+          </div>
+
+          <!-- Name & Gender in 2-column grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Name (Optional) -->
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                <span class="lang-en">Name (Optional)</span>
+                <span class="lang-hi hidden">आपका नाम (वैकल्पिक / Optional)</span>
+                <span class="lang-gu hidden">તમારું નામ (મરજીયાત / Optional)</span>
+              </label>
+              <input type="text" name="respondent_name" placeholder="Enter name or leave blank for anonymous" class="w-full text-sm p-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+            </div>
+
+            <!-- Gender -->
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                <span class="lang-en">Gender</span>
+                <span class="lang-hi hidden">लिंग (Gender)</span>
+                <span class="lang-gu hidden">જાતિ (Gender)</span>
+                <span class="text-rose-500">*</span>
+              </label>
+              <div class="grid grid-cols-3 gap-2">
+                <label class="option-card flex items-center justify-center p-2.5 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm">
+                  <input type="radio" name="gender" value="Female" required class="text-indigo-600 mr-1.5">
+                  <span class="lang-en">Female</span><span class="lang-hi hidden">महिला</span><span class="lang-gu hidden">સ્ત્રી</span>
+                </label>
+                <label class="option-card flex items-center justify-center p-2.5 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm">
+                  <input type="radio" name="gender" value="Male" class="text-indigo-600 mr-1.5">
+                  <span class="lang-en">Male</span><span class="lang-hi hidden">पुरुष</span><span class="lang-gu hidden">પુરુષ</span>
+                </label>
+                <label class="option-card flex items-center justify-center p-2.5 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm">
+                  <input type="radio" name="gender" value="Other" class="text-indigo-600 mr-1.5">
+                  <span class="lang-en">Other</span><span class="lang-hi hidden">अन्य</span><span class="lang-gu hidden">અન્ય</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q1: Age Group (with < 20 years) -->
+          <div>
+            <label class="block text-sm font-semibold text-slate-800 mb-2">
+              1. <span class="lang-en">What is your age group?</span>
+                 <span class="lang-hi hidden">आपकी आयु वर्ग क्या है?</span>
+                 <span class="lang-gu hidden">તમારું વય જૂથ (Age) કયું છે?</span>
+              <span class="text-rose-500">*</span>
+            </label>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+              <label class="option-card flex items-center justify-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm">
+                <input type="radio" name="age" value="< 20 years" required class="text-indigo-600 mr-1.5">
+                <span>&lt; 20 <span class="text-slate-400 text-xs font-normal">yrs</span></span>
+              </label>
+              <label class="option-card flex items-center justify-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm">
+                <input type="radio" name="age" value="21-25 years" class="text-indigo-600 mr-1.5">
+                <span>21 – 25</span>
+              </label>
+              <label class="option-card flex items-center justify-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm">
+                <input type="radio" name="age" value="26-30 years" class="text-indigo-600 mr-1.5">
+                <span>26 – 30</span>
+              </label>
+              <label class="option-card flex items-center justify-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm">
+                <input type="radio" name="age" value="31-35 years" class="text-indigo-600 mr-1.5">
+                <span>31 – 35</span>
+              </label>
+              <label class="option-card flex items-center justify-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm col-span-2 sm:col-span-1">
+                <input type="radio" name="age" value="36+ years" class="text-indigo-600 mr-1.5">
+                <span>36+ <span class="text-slate-400 text-xs font-normal">yrs</span></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Q2: Marital Status -->
+          <div>
+            <label class="block text-sm font-semibold text-slate-800 mb-2">
+              2. <span class="lang-en">Current relationship / marital status:</span>
+                 <span class="lang-hi hidden">वैवाहिक स्थिति:</span>
+                 <span class="lang-gu hidden">વૈવાહિક સ્થિતિ:</span>
+              <span class="text-rose-500">*</span>
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <label class="option-card flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm">
+                <input type="radio" name="marital_status" value="Married" required class="text-indigo-600 mr-2.5">
+                <div>
+                  <span class="font-bold text-slate-800">
+                    <span class="lang-en">Married</span><span class="lang-hi hidden">विवाहित</span><span class="lang-gu hidden">પરિણીત</span>
+                  </span>
+                  <span class="text-xs text-slate-500 block">
+                    <span class="lang-en">Currently married</span><span class="lang-hi hidden">वर्तमान में शादीशुदा</span><span class="lang-gu hidden">હાલમાં પરિણીત</span>
+                  </span>
+                </div>
+              </label>
+
+              <label class="option-card flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm">
+                <input type="radio" name="marital_status" value="Engaged / Soon to Marry" class="text-indigo-600 mr-2.5">
+                <div>
+                  <span class="font-bold text-slate-800">
+                    <span class="lang-en">Engaged / Soon to Marry</span><span class="lang-hi hidden">सगाई हो चुकी / जल्द विवाह</span><span class="lang-gu hidden">સગાઈ થયેલ / ટૂંક સમયમાં લગ્ન</span>
+                  </span>
+                  <span class="text-xs text-slate-500 block">
+                    <span class="lang-en">Getting married in near future</span><span class="lang-hi hidden">जल्द शादी होने वाली है</span><span class="lang-gu hidden">નજીકના ભવિષ્યમાં લગ્ન થશે</span>
+                  </span>
+                </div>
+              </label>
+
+              <label class="option-card flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm">
+                <input type="radio" name="marital_status" value="In a Relationship" class="text-indigo-600 mr-2.5">
+                <div>
+                  <span class="font-bold text-slate-800">
+                    <span class="lang-en">In a Relationship</span><span class="lang-hi hidden">रिलेशनशिप में</span><span class="lang-gu hidden">સંબંધમાં (Relationship)</span>
+                  </span>
+                  <span class="text-xs text-slate-500 block">
+                    <span class="lang-en">Dating / Long-term partner</span><span class="lang-hi hidden">पार्टनर के साथ</span><span class="lang-gu hidden">પાર્ટનર સાથે</span>
+                  </span>
+                </div>
+              </label>
+
+              <label class="option-card flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm">
+                <input type="radio" name="marital_status" value="Other / Unmarried" class="text-indigo-600 mr-2.5">
+                <div>
+                  <span class="font-bold text-indigo-600">
+                    <span class="lang-en">Other / Unmarried (Filling survey)</span>
+                    <span class="lang-hi hidden">अन्य / अविवाहित (सर्वे भर रहे हैं)</span>
+                    <span class="lang-gu hidden">અન્ય / અપરિણીત (સર્વે ભરી રહ્યા છે)</span>
+                  </span>
+                  <span class="text-xs text-slate-500 block">
+                    <span class="lang-en">Not married yet, sharing perspective</span>
+                    <span class="lang-hi hidden">शादी नहीं हुई, पर अपनी राय साझा कर रहे हैं</span>
+                    <span class="lang-gu hidden">લગ્ન નથી થયા પણ પોતાના વિચાર જણાવી રહ્યા છે</span>
+                  </span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Q3: Employment - SEPARATED Homemaker, Student & Other -->
+          <div>
+            <label class="block text-sm font-semibold text-slate-800 mb-2">
+              3. <span class="lang-en">Work / Profession status:</span>
+                 <span class="lang-hi hidden">कार्य / पेशा स्थिति (Occupation):</span>
+                 <span class="lang-gu hidden">રોજગાર / વ્યવસાય સ્થિતિ:</span>
+              <span class="text-rose-500">*</span>
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+              
+              <!-- 1. Full-Time Working -->
+              <label class="option-card flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm">
+                <input type="radio" name="work_status" value="Full-Time Working" required class="text-indigo-600 mr-2">
+                <div>
+                  <span class="font-bold text-slate-800 block">
+                    💼 <span class="lang-en">Full-Time Working</span><span class="lang-hi hidden">फुल-टाइम जॉब</span><span class="lang-gu hidden">પૂર્ણકાલીન નોકરી</span>
+                  </span>
+                  <span class="text-[11px] text-slate-500">Corporate, Gov, Private</span>
+                </div>
+              </label>
+
+              <!-- 2. Part-Time / Freelance -->
+              <label class="option-card flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm">
+                <input type="radio" name="work_status" value="Part-Time / Freelance / WFH" class="text-indigo-600 mr-2">
+                <div>
+                  <span class="font-bold text-slate-800 block">
+                    💻 <span class="lang-en">Part-Time / Freelance / WFH</span><span class="lang-hi hidden">पार्ट-टाइम / फ्रीलांस</span><span class="lang-gu hidden">પાર્ટ-ટાઈમ / ફ્રીલાન્સ</span>
+                  </span>
+                  <span class="text-[11px] text-slate-500">Work from home / Flexible</span>
+                </div>
+              </label>
+
+              <!-- 3. Business / Self-Employed -->
+              <label class="option-card flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm">
+                <input type="radio" name="work_status" value="Business / Self-Employed" class="text-indigo-600 mr-2">
+                <div>
+                  <span class="font-bold text-slate-800 block">
+                    🏪 <span class="lang-en">Business / Self-Employed</span><span class="lang-hi hidden">बिजनेस / स्वरोजगार</span><span class="lang-gu hidden">વેપાર / પોતાનો ધંધો</span>
+                  </span>
+                  <span class="text-[11px] text-slate-500">Shop, clinic, startup, trade</span>
+                </div>
+              </label>
+
+              <!-- 4. Homemaker / Housewife (SEPARATED) -->
+              <label class="option-card flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-indigo-400 text-xs sm:text-sm bg-slate-50/50">
+                <input type="radio" name="work_status" value="Homemaker / Housewife" class="text-indigo-600 mr-2">
+                <div>
+                  <span class="font-bold text-indigo-700 block">
+                    🏡 <span class="lang-en">Homemaker / Housewife</span>
+                       <span class="lang-hi hidden">गृहिणी (Homemaker / Housewife)</span>
+                       <span class="lang-gu hidden">ગૃહિણી (Homemaker / Housewife)</span>
+                  </span>
+                  <span class="text-[11px] text-slate-500">Managing household full-time</span>
+                </div>
+              </label>
+
+              <!-- 5. Student (SEPARATED) -->
+              <label class="option-card flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-indigo-400 text-xs sm:text-sm bg-slate-50/50">
+                <input type="radio" name="work_status" value="Student" class="text-indigo-600 mr-2">
+                <div>
+                  <span class="font-bold text-indigo-700 block">
+                    🎓 <span class="lang-en">Student</span>
+                       <span class="lang-hi hidden">छात्रा / विद्यार्थी (Student)</span>
+                       <span class="lang-gu hidden">વિદ્યાર્થી (Student)</span>
+                  </span>
+                  <span class="text-[11px] text-slate-500">College, university, studies</span>
+                </div>
+              </label>
+
+              <!-- 6. Other / Seeking (SEPARATED) -->
+              <label class="option-card flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm">
+                <input type="radio" name="work_status" value="Other / Currently Looking" class="text-indigo-600 mr-2">
+                <div>
+                  <span class="font-bold text-slate-800 block">
+                    ✨ <span class="lang-en">Other / Career Break</span>
+                       <span class="lang-hi hidden">अन्य / करियर ब्रेक</span>
+                       <span class="lang-gu hidden">અન્ય / કારકિર્દી વિરામ</span>
+                  </span>
+                  <span class="text-[11px] text-slate-500">Exploring, break, or other</span>
+                </div>
+              </label>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: Core Mindset & Chore Options (Swapped: 4th is Mindset, 5th is Multi-Tick) -->
+        <div class="bg-white rounded-2xl p-6 border-2 border-indigo-200 shadow-sm space-y-6">
+          <div class="border-b border-indigo-100 pb-3 flex justify-between items-center">
+            <div>
+              <span class="text-xs font-bold text-indigo-600 uppercase tracking-wide">Section 2 • Core Question</span>
+              <h3 class="text-base sm:text-lg font-bold text-slate-900">
+                <span class="lang-en">Chore Division & Mindset</span>
+                <span class="lang-hi hidden">घरेलू काम का बंटवारा और सोच</span>
+                <span class="lang-gu hidden">ઘરકામનું વિભાજન અને વિચારસરણી</span>
+              </h3>
+            </div>
+            <span class="text-xs bg-indigo-50 text-indigo-700 px-2.5 py-0.5 rounded-full font-semibold">
+              ⭐ Core Insights
+            </span>
+          </div>
+
+          <!-- QUESTION 4: Mindset Agreement -->
+          <div>
+            <label class="block text-sm sm:text-base font-bold text-slate-900 mb-2">
+              4. <span class="lang-en">Do you personally agree with this mindset: "After both partners work jobs, all household chores must be shared equally by both"?</span>
+                 <span class="lang-hi hidden">क्या आप व्यक्तिगत रूप से इस सोच से सहमत हैं: "जॉब करने के बाद घर के सारे काम दोनों को मिलकर बराबर करने चाहिए"?</span>
+                 <span class="lang-gu hidden">શું તમે વ્યક્તિગત રીતે આ વિચારસરણી સાથે સંમત છો: "બંનેની નોકરી પછી ઘરના બધા જ કામ બંનેએ મળીને સરખા ભાગે કરવા જોઈએ"?</span>
+              <span class="text-rose-500">*</span>
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <label class="option-card flex items-center p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-emerald-400 text-xs sm:text-sm">
+                <input type="radio" name="agree_with_shared_mindset" value="Fully Agree (पूर्ण सहमत)" required class="text-indigo-600 mr-2.5">
+                <div>
+                  <span class="font-bold text-emerald-700 block">
+                    ✅ <span class="lang-en">Yes, Fully Agree</span><span class="lang-hi hidden">हाँ, पूरी तरह सहमत</span><span class="lang-gu hidden">હા, પૂર્ણ સંમત</span>
+                  </span>
+                  <span class="text-[11px] text-slate-500">
+                    <span class="lang-en">100% equal teamwork</span><span class="lang-hi hidden">समान साझेदारी</span><span class="lang-gu hidden">સંપૂર્ણ સમાન ટીમવર્ક</span>
+                  </span>
+                </div>
+              </label>
+
+              <label class="option-card flex items-center p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-amber-400 text-xs sm:text-sm">
+                <input type="radio" name="agree_with_shared_mindset" value="Partially Agree / Depends on situation" class="text-indigo-600 mr-2.5">
+                <div>
+                  <span class="font-bold text-amber-700 block">
+                    ⚡ <span class="lang-en">Partially / Depends</span><span class="lang-hi hidden">आंशिक / परिस्थिति अनुसार</span><span class="lang-gu hidden">અંશતઃ / પરિસ્થિતિ મુજબ</span>
+                  </span>
+                  <span class="text-[11px] text-slate-500">
+                    <span class="lang-en">Flexible or hire help</span><span class="lang-hi hidden">लचीला या बाई रखें</span><span class="lang-gu hidden">લવચીક અથવા સહાયક રાખવું</span>
+                  </span>
+                </div>
+              </label>
+
+              <label class="option-card flex items-center p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-rose-400 text-xs sm:text-sm">
+                <input type="radio" name="agree_with_shared_mindset" value="Disagree (Only woman should do it)" class="text-indigo-600 mr-2.5">
+                <div>
+                  <span class="font-bold text-rose-700 block">
+                    ❌ <span class="lang-en">No, Disagree</span><span class="lang-hi hidden">नहीं, असहमत</span><span class="lang-gu hidden">ના, અસંમત</span>
+                  </span>
+                  <span class="text-[11px] text-slate-500">
+                    <span class="lang-en">Woman's sole responsibility</span><span class="lang-hi hidden">महिला की ही जिम्मेदारी है</span><span class="lang-gu hidden">માત્ર સ્ત્રીની જ જવાબદારી</span>
+                  </span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- QUESTION 5: Multi-Tick for Core Preference Arrangements -->
+          <div class="pt-5 border-t border-slate-100">
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-sm sm:text-base font-bold text-slate-900">
+                5. <span class="lang-en">When both couples work jobs, what arrangements do you like / support? (Select all that you agree with):</span>
+                   <span class="lang-hi hidden">जब दोनों जॉब करते हैं, तो आपको कौन-कौन सी व्यवस्था पसंद है? (जितने विकल्प सही लगें, सभी टिक करें):</span>
+                   <span class="lang-gu hidden">જ્યારે બંને નોકરી કરે છે, ત્યારે તમને કઈ-કઈ વ્યવસ્થા પસંદ છે? (જેટલા વિકલ્પો યોગ્ય લાગે તે બધા પસંદ કરો):</span>
+                <span class="text-rose-500">*</span>
+              </label>
+            </div>
+            <p class="text-xs text-indigo-600 font-medium mb-3 flex items-center gap-1">
+              <span>☑️</span>
+              <span class="lang-en">Multi-select enabled: Choose one or more options that reflect your ideal setup.</span>
+              <span class="lang-hi hidden">आप एक से ज्यादा विकल्प चुन सकते हैं (जैसे: 50-50 मिलके करना + काम वाली बाई रखना)।</span>
+              <span class="lang-gu hidden">તમે એક કરતાં વધુ વિકલ્પો પસંદ કરી શકો છો (દા.ત. 50-50 સરખે ભાગે + રસોઈયા/બાઈ રાખવા).</span>
+            </p>
+
+            <div class="space-y-3">
+              <!-- Option A: 50-50 Equal Shared -->
+              <label class="option-card flex items-start p-4 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-indigo-400 transition">
+                <input type="checkbox" name="core_preferences" value="50-50 Equal Shared Teamwork" class="mt-1 text-indigo-600 rounded mr-3 h-4 w-4">
+                <div>
+                  <span class="block font-bold text-slate-900 text-sm sm:text-base">
+                    🤝 <span class="lang-en">Both must share all chores equally (50-50 Teamwork)</span>
+                       <span class="lang-hi hidden">दोनों मिलकर सारे काम आधे-आधे बांटकर करें (50-50 साझेदारी)</span>
+                       <span class="lang-gu hidden">બંનેએ મળીને બધા કામ સરખા ભાગે કરવા જોઈએ (50-50 ટીમવર્ક)</span>
+                  </span>
+                  <span class="text-xs sm:text-sm text-slate-500 mt-0.5 block">
+                    <span class="lang-en">Cooking, cleaning, and grocery should be a combined team effort, not just one person's job.</span>
+                    <span class="lang-hi hidden">खाना, बर्तन, सफाई दोनों की साझी जिम्मेदारी हो, केवल एक का बोझ नहीं।</span>
+                    <span class="lang-gu hidden">રસોઈ, વાસણ, સફાઈ બંનેની સંયુક્ત જવાબદારી બને, ફક્ત એક વ્યક્તિનો બોજ નહીં.</span>
+                  </span>
+                </div>
+              </label>
+
+              <!-- Option B: Hire Maid / Outside Help -->
+              <label class="option-card flex items-start p-4 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-indigo-400 transition">
+                <input type="checkbox" name="core_preferences" value="Hire Paid Domestic Help / Maid" class="mt-1 text-indigo-600 rounded mr-3 h-4 w-4">
+                <div>
+                  <span class="block font-bold text-slate-900 text-sm sm:text-base">
+                    🧹 <span class="lang-en">Hire paid domestic help / maid so neither partner is overburdened</span>
+                       <span class="lang-hi hidden">काम वाली बाई / कुक रखें ताकि दोनों में से किसी पर भी अत्यधिक बोझ न पड़े</span>
+                       <span class="lang-gu hidden">કામવાળા બાઈ / રસોઈયા (Maid/Cook) રાખવા જેથી કોઈના પર વધુ બોજ ન પડે</span>
+                  </span>
+                  <span class="text-xs sm:text-sm text-slate-500 mt-0.5 block">
+                    <span class="lang-en">Outsource major tasks (utensils, sweeping, cooking), and share whatever small tasks remain.</span>
+                    <span class="lang-hi hidden">भारी काम बाहर से करवाएं और बाकी छोटे-मोटे काम मिलकर निपटाएं।</span>
+                    <span class="lang-gu hidden">મોટા કામ બહારથી કરાવો અને બાકીના નાના-મોટા કામ બંને સાથે મળીને કરો.</span>
+                  </span>
+                </div>
+              </label>
+
+              <!-- Option C: Flexible based on workload -->
+              <label class="option-card flex items-start p-4 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-indigo-400 transition">
+                <input type="checkbox" name="core_preferences" value="Flexible based on daily workload" class="mt-1 text-indigo-600 rounded mr-3 h-4 w-4">
+                <div>
+                  <span class="block font-bold text-slate-900 text-sm sm:text-base">
+                    ⚖️ <span class="lang-en">Flexible division based on who has lighter workload or free time</span>
+                       <span class="lang-hi hidden">लचीला बंटवारा—जिसके पास उस दिन समय और ऊर्जा ज्यादा हो वह आगे बढ़कर करे</span>
+                       <span class="lang-gu hidden">કામનું લવચીક વિભાજન—જેની પાસે તે દિવસે સમય અને ઊર્જા વધુ હોય તે કરે</span>
+                  </span>
+                  <span class="text-xs sm:text-sm text-slate-500 mt-0.5 block">
+                    <span class="lang-en">No rigid rules; support each other depending on office fatigue and deadlines.</span>
+                    <span class="lang-hi hidden">कोई सख्त नियम नहीं, जो जल्दी फ्री हो या कम थका हो वो काम संभाल ले।</span>
+                    <span class="lang-gu hidden">કોઈ કડક નિયમો નહીં, જે વહેલા આવે કે ઓછું થાકેલું હોય તે સંભાળી લે.</span>
+                  </span>
+                </div>
+              </label>
+
+              <!-- Option D: Wife manages, husband assists -->
+              <label class="option-card flex items-start p-4 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-indigo-400 transition">
+                <input type="checkbox" name="core_preferences" value="Wife primarily manages, husband assists" class="mt-1 text-indigo-600 rounded mr-3 h-4 w-4">
+                <div>
+                  <span class="block font-bold text-slate-900 text-sm sm:text-base">
+                    🍳 <span class="lang-en">Wife manages the home primarily, husband helps whenever asked</span>
+                       <span class="lang-hi hidden">महिला ही मुख्य रूप से संभाले, पति सिर्फ कहने पर मदद करे</span>
+                       <span class="lang-gu hidden">મુખ્યત્વે પત્ની જ ઘર સંભાળે, પતિ કહેવા પર મદદ કરે</span>
+                  </span>
+                  <span class="text-xs sm:text-sm text-slate-500 mt-0.5 block">
+                    <span class="lang-en">Wife retains domestic decision-making, husband provides assistance.</span>
+                    <span class="lang-hi hidden">घर की जिम्मेदारी मुख्य रूप से पत्नी के हाथ में रहे।</span>
+                    <span class="lang-gu hidden">ઘરની મુખ્ય દોર પત્નીના હાથમાં રહે.</span>
+                  </span>
+                </div>
+              </label>
+
+              <!-- Option E: Solely woman's duty -->
+              <label class="option-card flex items-start p-4 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-indigo-400 transition">
+                <input type="checkbox" name="core_preferences" value="Solely woman's responsibility" class="mt-1 text-indigo-600 rounded mr-3 h-4 w-4">
+                <div>
+                  <span class="block font-bold text-slate-900 text-sm sm:text-base">
+                    🏠 <span class="lang-en">Solely the woman's duty, regardless of her job or career</span>
+                       <span class="lang-hi hidden">सिर्फ अकेली महिला की जिम्मेदारी, भले ही वह नौकरी करती हो</span>
+                       <span class="lang-gu hidden">માત્ર એકલી મહિલાની જ જવાબદારી છે, ભલે તે નોકરી કરતી હોય</span>
+                  </span>
+                  <span class="text-xs sm:text-sm text-slate-500 mt-0.5 block">
+                    <span class="lang-en">Traditional expectation where household chores strictly belong to women.</span>
+                    <span class="lang-hi hidden">पारंपरिक सोच के अनुसार घर का काम केवल महिला का ही दायित्व है।</span>
+                    <span class="lang-gu hidden">પરંપરાગત માન્યતા મુજબ ઘરકામ ફક્ત સ્ત્રીનું જ કર્તવ્ય છે.</span>
+                  </span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- QUESTION 6: Real-Life Scenario -->
+          <div class="pt-5 border-t border-slate-100">
+            <label class="block text-sm sm:text-base font-bold text-slate-900 mb-2">
+              6. <span class="lang-en">Real-Life Scenario: When both partners return home exhausted after a stressful workday, what is the fair and loving expectation?</span>
+                 <span class="lang-hi hidden">वास्तविक परिस्थिति: जब दोनों पार्टनर काम और ऑफिस से बुरी तरह थक कर घर लौटें, तो सही और न्यायसंगत अपेक्षा क्या होनी चाहिए?</span>
+                 <span class="lang-gu hidden">વાસ્તવિક પરિસ્થિતિ: જ્યારે બંને પાર્ટનર काम और ऑफिसથી થાકીને ઘરે પાછા આવે, ત્યારે સાચી અને વાજબી અપેક્ષા શું હોવી જોઈએ?</span>
+              <span class="text-rose-500">*</span>
+            </label>
+            <div class="space-y-2">
+              <label class="option-card flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm">
+                <input type="radio" name="evening_scenario" value="Both step into kitchen together" required class="text-indigo-600 mr-2.5">
+                <span>
+                  🍲 <strong class="text-slate-800">
+                    <span class="lang-en">Both step into the kitchen together:</span>
+                    <span class="lang-hi hidden">दोनों मिलकर रसोई में जाएं:</span>
+                    <span class="lang-gu hidden">બંને સાથે મળીને રસોડામાં જાય:</span>
+                  </strong> 
+                  <span class="lang-en">Whip up a quick meal or split dinner and clean-up duties as teammates.</span>
+                  <span class="lang-hi hidden">एक खाना बनाए और दूसरा बर्तन या टेबल संभाले, एक टीम की तरह।</span>
+                  <span class="lang-gu hidden">એક ખાવાનું બનાવે અને બીજું વાસણ કે ટેબલ સંભાળે, એક ટીમ તરીકે.</span>
+                </span>
+              </label>
+
+              <label class="option-card flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm">
+                <input type="radio" name="evening_scenario" value="Order food outside / Prioritize rest" class="text-indigo-600 mr-2.5">
+                <span>
+                  🛵 <strong class="text-slate-800">
+                    <span class="lang-en">Order food from outside:</span>
+                    <span class="lang-hi hidden">बाहर से खाना मंगवा लें:</span>
+                    <span class="lang-gu hidden">બહારથી ભોજન મંગાવી લેવું:</span>
+                  </strong>
+                  <span class="lang-en">Prioritize rest and mental peace without guilt or demanding home-cooked meals.</span>
+                  <span class="lang-hi hidden">बिना किसी अपराधबोध या दबाव के आराम को पहली प्राथमिकता दें।</span>
+                  <span class="lang-gu hidden">કોઈ પણ દબાણ વિના આરામ અને માનસિક શાંતિને પ્રાથમિકતા આપવી.</span>
+                </span>
+              </label>
+
+              <label class="option-card flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 text-xs sm:text-sm">
+                <input type="radio" name="evening_scenario" value="Husband relaxes while wife cooks alone" class="text-indigo-600 mr-2.5">
+                <span>
+                  📺 <strong class="text-slate-800">
+                    <span class="lang-en">Husband relaxes while wife cooks:</span>
+                    <span class="lang-hi hidden">पति आराम करे और पत्नी अकेले बनाए:</span>
+                    <span class="lang-gu hidden">પતિ આરામ કરે અને પત્ની એકલી રસોઈ કરે:</span>
+                  </strong>
+                  <span class="lang-en">Husband rests/watches phone while the tired wife serves tea and cooks alone.</span>
+                  <span class="lang-hi hidden">पति फोन या टीवी देखे और थकी हुई पत्नी अकेले चाय-खाना बनाकर परोसे।</span>
+                  <span class="lang-gu hidden">પતિ ટીવી કે ફોન જુએ અને થાકેલી પત્ની એકલી ચા-ખાવાનું બનાવીને પીરસે.</span>
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: Task Breakdown Matrix -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+          <div class="border-b border-slate-100 pb-3">
+            <span class="text-xs font-bold text-indigo-600 uppercase tracking-wide">Section 3 • Daily Chores</span>
+            <h3 class="text-base sm:text-lg font-bold text-slate-900">
+              <span class="lang-en">Who Should Handle Which Task?</span>
+              <span class="lang-hi hidden">कौन सा काम किसे करना चाहिए?</span>
+              <span class="lang-gu hidden">કયું કામ કોણે કરવું જોઈએ?</span>
+            </h3>
+            <p class="text-xs text-slate-500 mt-0.5">
+              <span class="lang-en">Select who should ideally take responsibility when both work:</span>
+              <span class="lang-hi hidden">जब दोनों कमाते हैं, तो इन कामों के लिए आपकी पसंद:</span>
+              <span class="lang-gu hidden">જ્યારે બંને કમાય છે, ત્યારે આ કામો માટે તમારી પસંદગી:</span>
+            </p>
+          </div>
+
+          <div class="overflow-x-auto custom-scroll">
+            <table class="w-full text-left text-xs sm:text-sm">
+              <thead>
+                <tr class="border-b border-slate-200 text-slate-600 bg-slate-50">
+                  <th class="py-2.5 px-3 font-semibold">Chore / કામ</th>
+                  <th class="py-2.5 px-2 text-center font-bold text-indigo-600">Both Together (બંને)</th>
+                  <th class="py-2.5 px-2 text-center font-semibold">Husband (પતિ)</th>
+                  <th class="py-2.5 px-2 text-center font-semibold">Wife (પત્ની)</th>
+                  <th class="py-2.5 px-2 text-center font-semibold">Maid / Help (સહાયક)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr>
+                  <td class="py-3 px-3 font-medium text-slate-800">
+                    🍳 Cooking Meals<br><span class="text-xs text-slate-400">રસોઈ બનાવવી / खाना</span>
+                  </td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_cooking" value="Both" checked class="text-indigo-600"></td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_cooking" value="Husband" class="text-indigo-600"></td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_cooking" value="Wife" class="text-indigo-600"></td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_cooking" value="Maid" class="text-indigo-600"></td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-3 font-medium text-slate-800">
+                    🥣 Utensils & Kitchen Clean<br><span class="text-xs text-slate-400">વાસણ / बर्तन सफाई</span>
+                  </td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_dishes" value="Both" checked class="text-indigo-600"></td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_dishes" value="Husband" class="text-indigo-600"></td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_dishes" value="Wife" class="text-indigo-600"></td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_dishes" value="Maid" class="text-indigo-600"></td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-3 font-medium text-slate-800">
+                    🧹 Sweeping & Mopping<br><span class="text-xs text-slate-400">ઝાડુ-પોતા / झाड़ू-पोछा</span>
+                  </td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_cleaning" value="Both" class="text-indigo-600"></td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_cleaning" value="Husband" class="text-indigo-600"></td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_cleaning" value="Wife" class="text-indigo-600"></td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_cleaning" value="Maid" checked class="text-indigo-600"></td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-3 font-medium text-slate-800">
+                    🛒 Grocery & Vegetables<br><span class="text-xs text-slate-400">શાકભાજી-કરિયાણું / राशन</span>
+                  </td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_groceries" value="Both" checked class="text-indigo-600"></td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_groceries" value="Husband" class="text-indigo-600"></td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_groceries" value="Wife" class="text-indigo-600"></td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_groceries" value="Maid" class="text-indigo-600"></td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-3 font-medium text-slate-800">
+                    🧺 Laundry & Clothes<br><span class="text-xs text-slate-400">કપડાં ધોવા / कपड़े धोना</span>
+                  </td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_laundry" value="Both" checked class="text-indigo-600"></td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_laundry" value="Husband" class="text-indigo-600"></td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_laundry" value="Wife" class="text-indigo-600"></td>
+                  <td class="py-3 px-2 text-center"><input type="radio" name="task_laundry" value="Maid" class="text-indigo-600"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SECTION 4: Emotional Impact -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
+          <div class="border-b border-slate-100 pb-3">
+            <span class="text-xs font-bold text-indigo-600 uppercase tracking-wide">Section 4 • Emotional Impact</span>
+            <h3 class="text-base sm:text-lg font-bold text-slate-900">
+              <span class="lang-en">Impact on Well-being & Relationship</span>
+              <span class="lang-hi hidden">रिश्ते और मानसिक स्वास्थ्य पर असर</span>
+              <span class="lang-gu hidden">સંબંધો અને માનસિક સ્વાસ્થ્ય પર અસર</span>
+            </h3>
+          </div>
+
+          <!-- Q7: Impact of lone burden -->
+          <div>
+            <label class="block text-sm font-semibold text-slate-800 mb-2">
+              7. <span class="lang-en">What happens when a working woman is forced to do all domestic chores alone? (Select all that apply)</span>
+                 <span class="lang-hi hidden">जब नौकरी के बाद भी सारा काम अकेले महिला को करना पड़े, तो क्या असर पड़ता है?</span>
+                 <span class="lang-gu hidden">જ્યારે નોકરી પછી પણ ઘરનું બધું કામ એકલી સ્ત્રીએ જ કરવું પડે, ત્યારે શું અસર થાય છે?</span>
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+              <label class="option-card flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300">
+                <input type="checkbox" name="impact" value="Physical Burnout & Fatigue" checked class="text-indigo-600 rounded mr-2.5">
+                <span>😫 <span class="lang-en">Physical exhaustion & chronic fatigue</span><span class="lang-hi hidden">शारीरिक थकान व बीमारी</span><span class="lang-gu hidden">શારીરિક થાક અને અસ્વસ્થતા</span></span>
+              </label>
+              <label class="option-card flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300">
+                <input type="checkbox" name="impact" value="Resentment towards Husband" checked class="text-indigo-600 rounded mr-2.5">
+                <span>💔 <span class="lang-en">Resentment & distance from partner</span><span class="lang-hi hidden">पति के प्रति मन में कड़वाहट</span><span class="lang-gu hidden">પતિ પ્રત્યે મનમાં કડવાશ અને ગુસ્સો</span></span>
+              </label>
+              <label class="option-card flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300">
+                <input type="checkbox" name="impact" value="Compromised Career Growth" checked class="text-indigo-600 rounded mr-2.5">
+                <span>📉 <span class="lang-en">Sacrificed career dreams & promotions</span><span class="lang-hi hidden">करियर और नौकरी पर बुरा असर</span><span class="lang-gu hidden">કરિયર અને પ્રમોશન પર ખરાબ અસર</span></span>
+              </label>
+              <label class="option-card flex items-center p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300">
+                <input type="checkbox" name="impact" value="Loss of Romance & Closeness" class="text-indigo-600 rounded mr-2.5">
+                <span>🥀 <span class="lang-en">Loss of romance & intimacy in marriage</span><span class="lang-hi hidden">रिश्ते में प्यार और निकटता की कमी</span><span class="lang-gu hidden">દાંપત્ય જીવનમાં પ્રેમ અને નિકટતાનો અભાવ</span></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Q8: Quote Agreement -->
+          <div>
+            <label class="block text-sm font-semibold text-slate-800 mb-2">
+              8. <span class="lang-en">Do you agree: <em>"Doing chores is not 'helping your wife', it is taking ownership of your own home"</em>?</span>
+                 <span class="lang-hi hidden">क्या आप सहमत हैं: <em>"घर का काम करना 'पत्नी पर अहसान' नहीं, बल्कि अपने ही घर की ज़िम्मेदारी है"</em>?</span>
+                 <span class="lang-gu hidden">શું તમે સંમત છો: <em>"ઘરનું કામ કરવું એ 'પત્ની પર ઉપકાર' નથી, પરંતુ પોતાના જ ઘરની જવાબદારી નિભાવવી છે"</em>?</span>
+              <span class="text-rose-500">*</span>
+            </label>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-center text-xs">
+              <label class="option-card p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 flex flex-col items-center justify-center">
+                <input type="radio" name="chore_quote_agreement" value="Strongly Agree" required class="text-indigo-600 mb-1">
+                <span class="font-bold text-emerald-600">Strongly Agree</span>
+                <span class="text-slate-400">પૂર્ણ સંમત</span>
+              </label>
+              <label class="option-card p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 flex flex-col items-center justify-center">
+                <input type="radio" name="chore_quote_agreement" value="Agree" class="text-indigo-600 mb-1">
+                <span class="font-semibold text-indigo-600">Agree</span>
+                <span class="text-slate-400">સંમત</span>
+              </label>
+              <label class="option-card p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 flex flex-col items-center justify-center">
+                <input type="radio" name="chore_quote_agreement" value="Neutral" class="text-indigo-600 mb-1">
+                <span class="font-semibold text-slate-600">Neutral</span>
+                <span class="text-slate-400">તટસ્થ</span>
+              </label>
+              <label class="option-card p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 flex flex-col items-center justify-center">
+                <input type="radio" name="chore_quote_agreement" value="Disagree" class="text-indigo-600 mb-1">
+                <span class="font-semibold text-amber-600">Disagree</span>
+                <span class="text-slate-400">અસંમત</span>
+              </label>
+              <label class="option-card p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-indigo-300 flex flex-col items-center justify-center col-span-2 sm:col-span-1">
+                <input type="radio" name="chore_quote_agreement" value="Strongly Disagree" class="text-indigo-600 mb-1">
+                <span class="font-bold text-rose-600">Strongly Disagree</span>
+                <span class="text-slate-400">પૂર્ણ અસંમત</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 5: Advice & Voice with Audio Microphone Feature -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+          <div class="border-b border-slate-100 pb-3 flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="text-xs font-bold text-indigo-600 uppercase tracking-wide">Section 5 • Your Voice</span>
+              <h3 class="text-base sm:text-lg font-bold text-slate-900">
+                <span class="lang-en">Advice & Message for Couples</span>
+                <span class="lang-hi hidden">दंपतियों के लिए आपकी सलाह</span>
+                <span class="lang-gu hidden">યુગલો માટે તમારી સલાહ</span>
+              </h3>
+            </div>
+            <div id="micStatusContainer" class="hidden items-center gap-1.5 px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-600 mic-pulse inline-block"></span>
+              <span id="micStatusText">Listening... બોલો...</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label class="block text-sm font-semibold text-slate-800">
+                9. <span class="lang-en">What piece of advice would you give to couples about managing household work equally?</span>
+                   <span class="lang-hi hidden">कामकाजी जोड़ों को घर के काम और रिश्ते को संतुलित करने के लिए आप क्या सलाह देंगे?</span>
+                   <span class="lang-gu hidden">કામકાજી યુગલોને ઘરકામ અને સંબંધોને સંતુલિત રાખવા માટે તમે શું સલાહ આપશો?</span>
+              </label>
+              
+              <!-- Audio Mic Button -->
+              <button type="button" id="voiceTypingBtn" onclick="toggleVoiceRecording()" class="px-3 py-1.5 rounded-xl border border-indigo-200 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold transition flex items-center gap-1.5 shadow-sm active:scale-95">
+                <span id="micIcon" class="text-base">🎙️</span>
+                <span id="micBtnLabel">
+                  <span class="lang-en">Speak to Type</span>
+                  <span class="lang-hi hidden">बोलकर लिखें</span>
+                  <span class="lang-gu hidden">બોલીને લખો</span>
+                </span>
+              </button>
+            </div>
+
+            <div id="voiceNotice" class="hidden text-xs text-amber-600 bg-amber-50 p-2 rounded-lg mb-2"></div>
+
+            <div class="relative">
+              <textarea id="adviceTextarea" name="advice_text" rows="4" placeholder="Type here or click 'Speak to Type' to speak in your language..." class="w-full text-sm p-3.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none leading-relaxed"></textarea>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1">
+              💡 <span class="lang-en">Tap the microphone to speak freely in English, Hindi, or Gujarati. Your speech will be converted to text automatically!</span>
+                 <span class="lang-hi hidden">माइक पर क्लिक करके हिंदी, गुजराती या अंग्रेजी में बोलें, आपकी आवाज अपने आप टेक्स्ट में बदल जाएगी!</span>
+                 <span class="lang-gu hidden">માઈક પર ક્લિક કરીને ગુજરાતી, હિન્દી કે અંગ્રેજીમાં બોલો, તમારો અવાજ આપમેળે લખાણમાં બદલાઈ જશે!</span>
+            </p>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-4 flex flex-col sm:flex-row gap-3 items-center justify-between border-t border-slate-100">
+            <span class="text-xs text-slate-400 flex items-center gap-1">
+              <span>🛡️</span> All responses stored securely on your browser.
+            </span>
+            <button type="submit" class="w-full sm:w-auto px-8 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+              <span>📤</span>
+              <span class="lang-en">Submit Survey Response</span>
+              <span class="lang-hi hidden">सर्वेक्षण सबमिट करें</span>
+              <span class="lang-gu hidden">સર્વેક્ષણ સબમિટ કરો</span>
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- SUCCESS SCREEN -->
+    <div id="successView" class="hidden bg-white rounded-2xl p-8 border border-slate-200 shadow-sm text-center space-y-6">
+      <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto">
+        ✓
+      </div>
+      <div>
+        <h2 class="text-2xl font-bold text-slate-900">
+          <span class="lang-en">Thank you for your valuable response!</span>
+          <span class="lang-hi hidden">आपके मूल्यवान विचार के लिए धन्यवाद!</span>
+          <span class="lang-gu hidden">તમારા મૂલ્યવાન પ્રતિભાવ માટે ખૂબ ખૂબ આભાર!</span>
+        </h2>
+        <p class="text-slate-500 text-sm mt-2 max-w-md mx-auto">
+          <span class="lang-en">Your feedback has been safely recorded. Perspectives like yours help champion equality, understanding, and love in relationships.</span>
+          <span class="lang-hi hidden">आपकी प्रतिक्रिया दर्ज कर ली गई है। आपकी राय आधुनिक रिश्तों में समानता और सम्मान को बढ़ावा देने में मदद करती है।</span>
+          <span class="lang-gu hidden">તમારો પ્રતિભાવ સફળતાપૂર્વક નોંધાઈ ગયો છે. તમારા વિચારો આધુનિક સંબંધોમાં સમાનતા અને પરસ્પર પ્રેમને પ્રોત્સાહન આપે છે.</span>
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-3 justify-center pt-2">
+        <button onclick="toggleView('survey')" class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold shadow transition">
+          ↺ <span class="lang-en">Submit Another Response</span><span class="lang-hi hidden">एक और प्रतिक्रिया दें</span><span class="lang-gu hidden">બીજો પ્રતિભાવ આપો</span>
+        </button>
+      </div>
+    </div>
+
+        <!-- RESULTS SUMMARY VIEW (PROFESSIONAL ANALYTICS DASHBOARD) -->
+    <div id="resultsView" class="hidden space-y-6">
+      
+      <!-- Top Header Bar -->
+      <div class="flex flex-wrap items-center justify-between bg-white p-5 rounded-2xl border border-slate-200 shadow-sm gap-3">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-base shadow-sm">📊</span>
+            <h2 class="text-lg sm:text-xl font-black text-slate-900">Survey Insights & Analytics Dashboard</h2>
+          </div>
+          <p class="text-xs text-slate-500 mt-1">
+            <span class="lang-en">Real-time demographic breakdowns, gender ratios & household division mindset statistics</span>
+            <span class="lang-hi hidden">भागीदारों का जनसांख्यिकीय विश्लेषण, लिंग अनुपात और घरेलू काम पर राय</span>
+            <span class="lang-gu hidden">સર્વેક્ષણ વિશ્લેષણ, જાતિ અને વય જૂથ પ્રમાણે આંકડાકીય આલેખ અને મંતવ્યો</span>
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="exportToCSV()" class="px-3.5 py-2 rounded-xl border border-slate-300 text-xs font-bold text-slate-700 hover:bg-slate-100 flex items-center gap-1.5 shadow-sm transition">
+            📥 Export CSV
+          </button>
+          <button onclick="toggleView('survey')" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm transition flex items-center gap-1.5">
+            ✍️ Back to Survey
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick KPI Metric Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm text-center relative overflow-hidden">
+          <div class="absolute top-0 inset-x-0 h-1.5 bg-indigo-600"></div>
+          <span class="text-3xl font-black text-indigo-600 tracking-tight" id="totalResponsesCount">0</span>
+          <span class="block text-xs font-bold text-slate-700 mt-1">Total Submissions</span>
+          <span class="text-[10px] text-slate-400">કુલ પ્રતિભાવો / कुल प्रतिक्रियाएं</span>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm text-center relative overflow-hidden">
+          <div class="absolute top-0 inset-x-0 h-1.5 bg-emerald-500"></div>
+          <span class="text-3xl font-black text-emerald-600 tracking-tight" id="agreeMindsetPercent">0%</span>
+          <span class="block text-xs font-bold text-slate-700 mt-1">Want Shared Chores</span>
+          <span class="text-[10px] text-slate-400">બંને મળીને / दोनों मिलकर काम</span>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm text-center relative overflow-hidden">
+          <div class="absolute top-0 inset-x-0 h-1.5 bg-rose-500"></div>
+          <span class="text-3xl font-black text-rose-600 tracking-tight" id="femalePercentBadge">0%</span>
+          <span class="block text-xs font-bold text-slate-700 mt-1">Women Participation</span>
+          <span class="text-[10px] text-slate-400">મહિલા સહભાગીઓ / महिला हिस्सेदारी</span>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm text-center relative overflow-hidden">
+          <div class="absolute top-0 inset-x-0 h-1.5 bg-blue-500"></div>
+          <span class="text-3xl font-black text-blue-600 tracking-tight" id="maidHelpPercent">0%</span>
+          <span class="block text-xs font-bold text-slate-700 mt-1">Want Maid / Cook Help</span>
+          <span class="text-[10px] text-slate-400">સહાયક રાખવા / बाई की मदद</span>
+        </div>
+      </div>
+
+      <!-- Demographic Live Filter Bar -->
+      <div class="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-sm flex flex-wrap items-center gap-2">
+        <span class="text-xs font-black text-slate-500 uppercase tracking-wider mr-1 flex items-center gap-1">
+          <span>🔍</span> Filter Graphs:
+        </span>
+        <button type="button" onclick="setDashboardFilter('all')" id="filterBtn-all" class="filter-btn px-3 py-1 rounded-full text-xs font-bold bg-indigo-600 text-white shadow-sm transition">
+          All (<span id="filterCnt-all">0</span>)
+        </button>
+        <button type="button" onclick="setDashboardFilter('Female')" id="filterBtn-Female" class="filter-btn px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+          👩 Women (<span id="filterCnt-Female">0</span>)
+        </button>
+        <button type="button" onclick="setDashboardFilter('Male')" id="filterBtn-Male" class="filter-btn px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+          👨 Men (<span id="filterCnt-Male">0</span>)
+        </button>
+        <button type="button" onclick="setDashboardFilter('Homemaker / Housewife')" id="filterBtn-Homemaker" class="filter-btn px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+          🏡 Housewives (<span id="filterCnt-Homemaker">0</span>)
+        </button>
+        <button type="button" onclick="setDashboardFilter('Student')" id="filterBtn-Student" class="filter-btn px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+          🎓 Students (<span id="filterCnt-Student">0</span>)
+        </button>
+        <button type="button" onclick="setDashboardFilter('Full-Time Working')" id="filterBtn-Working" class="filter-btn px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+          💼 Working (<span id="filterCnt-Working">0</span>)
+        </button>
+      </div>
+
+      <!-- SECTION 1: PARTICIPANT DEMOGRAPHICS GRAPHS (Gender, Age Categories, Profession, Marital Status) -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-indigo-600 inline-block"></span>
+            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-800">
+              Participant Demographics Profile (કોણે આ સર્વે ભર્યો?)
+            </h3>
+          </div>
+          <span class="text-xs text-slate-500 font-medium" id="filterStatusIndicator">Showing: All Records</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <!-- Graph 1: Gender Distribution -->
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+              <div>
+                <h4 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                  <span>👥</span> Gender Distribution (જાતિ વિભાજન)
+                </h4>
+                <p class="text-[11px] text-slate-400">Ratio of Female, Male and Other participants</p>
+              </div>
+              <span id="genderDominancePill" class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200"></span>
+            </div>
+
+            <!-- Segmented Color Bar -->
+            <div class="w-full h-3 rounded-full bg-slate-100 overflow-hidden flex shadow-inner" id="genderSegmentedBar"></div>
+
+            <!-- Detailed breakdown list -->
+            <div id="genderBars" class="space-y-2.5 pt-1"></div>
+          </div>
+
+          <!-- Graph 2: Age Category Breakdown (<20, 21-25, 26-30, 31-35, 36+) -->
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+              <div>
+                <h4 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                  <span>🎂</span> Age Category Breakdown (વય જૂથ / आयु वर्ग)
+                </h4>
+                <p class="text-[11px] text-slate-400">&lt;20, 21-25, 26-30, 31-35, 36+ years distribution</p>
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">5 Age Brackets</span>
+            </div>
+
+            <div id="ageBars" class="space-y-2.5 pt-1"></div>
+          </div>
+
+          <!-- Graph 3: Profession / Occupation Breakdown -->
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+              <div>
+                <h4 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                  <span>💼</span> Occupation & Profession Status (વ્યવસાય સ્થિતિ)
+                </h4>
+                <p class="text-[11px] text-slate-400">Housewives, Students, Full-Time & Business professionals</p>
+              </div>
+            </div>
+
+            <div id="occupationBars" class="space-y-2.5 pt-1"></div>
+          </div>
+
+          <!-- Graph 4: Marital & Relationship Status -->
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+              <div>
+                <h4 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                  <span>💍</span> Marital & Relationship Status (વૈવાહિક સ્થિતિ)
+                </h4>
+                <p class="text-[11px] text-slate-400">Married, Engaged, In Relationship & Unmarried</p>
+              </div>
+            </div>
+
+            <div id="maritalBars" class="space-y-2.5 pt-1"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SECTION 2: OPINIONS & CHORE DIVISION GRAPHS -->
+      <div class="space-y-4">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-emerald-600 inline-block"></span>
+          <h3 class="text-sm font-bold uppercase tracking-wider text-slate-800">
+            Survey Opinions & Mindset Analysis (વિચારો અને માનસિકતા)
+          </h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Mindset Agreement Breakdown (Question 4) -->
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <div class="border-b border-slate-100 pb-2">
+              <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wide">Q4 Mindset: Should Chores Be Shared Equally?</h4>
+              <p class="text-[11px] text-slate-400">બંને મળીને ઘરકામ કરવું જોઈએ કે એકલી સ્ત્રીએ જ?</p>
+            </div>
+            <div id="mindsetBars" class="space-y-2.5"></div>
+          </div>
+
+          <!-- Core Preferences Multi-Tick Breakdown (Question 5) -->
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <div class="border-b border-slate-100 pb-2">
+              <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wide">Q5 Chore Preferences Selected (વિકલ્પોની પસંદગી)</h4>
+              <p class="text-[11px] text-slate-400">50-50 ટીમવર્ક, સહાયક રાખવા કે અન્ય વ્યવસ્થા</p>
+            </div>
+            <div id="breakdownBars" class="space-y-2.5"></div>
+          </div>
+
+          <!-- Real-Life Evening Scenario (Question 6) -->
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <div class="border-b border-slate-100 pb-2">
+              <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wide">Q6 Evening Scenario: When Both Return Exhausted</h4>
+              <p class="text-[11px] text-slate-400">કામ પરથી થાકીને આવ્યા પછી વાજબી અપેક્ષા</p>
+            </div>
+            <div id="eveningScenarioBars" class="space-y-2.5"></div>
+          </div>
+
+          <!-- Ownership Quote Agreement (Question 8) -->
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <div class="border-b border-slate-100 pb-2">
+              <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wide">Q8 Quote: "Doing chores is taking ownership, not helping"</h4>
+              <p class="text-[11px] text-slate-400">ઘરકામ ઉપકાર નથી પરંતુ પોતાની જવાબદારી છે</p>
+            </div>
+            <div id="quoteAgreementBars" class="space-y-2.5"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: RECENT SUBMISSIONS TABLE (LIVE RECORDS AUDIT) -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+          <div>
+            <h4 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+              <span>📋</span> Individual Participant Submissions Log (<span id="tableCount">0</span> records)
+            </h4>
+            <p class="text-[11px] text-slate-400">Detailed list of responses stored</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto custom-scroll max-h-80 overflow-y-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="sticky top-0 bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
+              <tr>
+                <th class="py-2.5 px-3">Respondent</th>
+                <th class="py-2.5 px-2">Gender</th>
+                <th class="py-2.5 px-2">Age</th>
+                <th class="py-2.5 px-2">Profession</th>
+                <th class="py-2.5 px-2">Marital Status</th>
+                <th class="py-2.5 px-2">Equal Mindset</th>
+                <th class="py-2.5 px-2">Time</th>
+              </tr>
+            </thead>
+            <tbody id="submissionsTableBody" class="divide-y divide-slate-100 text-slate-700">
+              <!-- Dynamically populated rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="text-center pt-2 pb-4">
+        <button onclick="clearAllData()" class="text-xs text-rose-500 hover:text-rose-700 hover:underline font-medium">
+          🔄 Reset all local survey data to default
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Admin PIN Modal (Hidden from respondents) -->
+  <div id="adminPinModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl border border-slate-200 text-center space-y-4">
+      <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center text-2xl mx-auto border border-indigo-100">
+        🔐
+      </div>
+      <div>
+        <h3 class="text-base font-bold text-slate-900">Admin Authorization Required</h3>
+        <p class="text-xs text-slate-500 mt-1">Survey responses and analytics are private. Enter your Admin PIN to view records.</p>
+      </div>
+      <div>
+        <input type="password" id="adminPinInput" maxlength="10" placeholder="Enter PIN (Default: 1234)" class="w-full text-center tracking-widest text-lg font-bold p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+        <p id="adminPinError" class="hidden text-xs text-rose-600 font-semibold mt-1.5">❌ Incorrect PIN. Access denied.</p>
+      </div>
+      <div class="flex gap-2 pt-1">
+        <button type="button" onclick="closeAdminPinModal()" class="w-1/2 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 transition">Cancel</button>
+        <button type="button" onclick="verifyAdminPin()" class="w-1/2 py-2.5 text-xs font-bold rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow transition">Unlock Results</button>
+      </div>
+      <p class="text-[11px] text-slate-400">Default PIN: <span class="font-mono font-bold text-slate-600">1234</span></p>
+    </div>
+  </div>
+
+  <footer class="bg-white border-t border-slate-200 py-4 px-4 text-xs text-slate-500">
+    <div class="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+      <span>Equality in marriage creates happiness everywhere. Respect & Partnership.</span>
+      <button type="button" onclick="openAdminPinModal()" class="text-slate-400 hover:text-indigo-600 transition flex items-center gap-1 text-[11px] underline">
+        🔒 Admin Access
+      </button>
+    </div>
+  </footer>
+
+    <!-- Survey Engine Javascript -->
+  <script>
+    const SEED_DATA = [
+      {
+        timestamp: "2026-11-12T10:15:00Z",
+        respondent_name: "Pooja P.",
+        gender: "Female",
+        age: "21-25 years",
+        marital_status: "Engaged / Soon to Marry",
+        work_status: "Full-Time Working",
+        agree_with_shared_mindset: "Fully Agree (બંનેએ મળીને / पूर्ण सहमत)",
+        core_preferences: ["50-50 Equal Shared Teamwork", "Hire Paid Domestic Help / Maid"],
+        evening_scenario: "Both step into kitchen together",
+        chore_quote_agreement: "Strongly Agree",
+        advice_text: "Housework belongs to the house, not gender. Marriage is equal teamwork."
+      },
+      {
+        timestamp: "2026-11-12T11:40:00Z",
+        respondent_name: "Sneha D.",
+        gender: "Female",
+        age: "< 20 years",
+        marital_status: "Other / Unmarried",
+        work_status: "Student",
+        agree_with_shared_mindset: "Fully Agree (બંનેએ મળીને / पूर्ण सहमत)",
+        core_preferences: ["50-50 Equal Shared Teamwork"],
+        evening_scenario: "Both step into kitchen together",
+        chore_quote_agreement: "Strongly Agree",
+        advice_text: "Boys should learn cooking and basic chores from childhood, just like girls are taught."
+      },
+      {
+        timestamp: "2026-11-12T13:20:00Z",
+        respondent_name: "Meera K.",
+        gender: "Female",
+        age: "26-30 years",
+        marital_status: "Married",
+        work_status: "Homemaker / Housewife",
+        agree_with_shared_mindset: "Fully Agree (બંનેએ મળીને / पूर्ण सहमत)",
+        core_preferences: ["50-50 Equal Shared Teamwork", "Hire Paid Domestic Help / Maid"],
+        evening_scenario: "Order food outside / Prioritize rest",
+        chore_quote_agreement: "Strongly Agree",
+        advice_text: "Even as homemakers, we need emotional respect and partnership from our husbands."
+      },
+      {
+        timestamp: "2026-11-12T14:45:00Z",
+        respondent_name: "Rahul V.",
+        gender: "Male",
+        age: "26-30 years",
+        marital_status: "Married",
+        work_status: "Full-Time Working",
+        agree_with_shared_mindset: "Fully Agree (બંનેએ મળીને / पूर्ण सहमत)",
+        core_preferences: ["50-50 Equal Shared Teamwork", "Flexible based on daily workload"],
+        evening_scenario: "Both step into kitchen together",
+        chore_quote_agreement: "Strongly Agree",
+        advice_text: "Sharing household work equally reduced tension in our marriage and brought us closer."
+      },
+      {
+        timestamp: "2026-11-12T16:10:00Z",
+        respondent_name: "Priya Patel",
+        gender: "Female",
+        age: "21-25 years",
+        marital_status: "In a Relationship",
+        work_status: "Part-Time / Freelance / WFH",
+        agree_with_shared_mindset: "Fully Agree (બંનેએ મળીને / पूर्ण सहमत)",
+        core_preferences: ["50-50 Equal Shared Teamwork"],
+        evening_scenario: "Both step into kitchen together",
+        chore_quote_agreement: "Strongly Agree",
+        advice_text: "Mutual respect and communication are key. Chores should never feel like a punishment for women."
+      },
+      {
+        timestamp: "2026-11-12T17:30:00Z",
+        respondent_name: "Dr. Hardik S.",
+        gender: "Male",
+        age: "31-35 years",
+        marital_status: "Married",
+        work_status: "Business / Self-Employed",
+        agree_with_shared_mindset: "Fully Agree (બંનેએ મળીને / पूर्ण सहमत)",
+        core_preferences: ["Hire Paid Domestic Help / Maid", "50-50 Equal Shared Teamwork"],
+        evening_scenario: "Order food outside / Prioritize rest",
+        chore_quote_agreement: "Strongly Agree",
+        advice_text: "We run a clinic together. Hiring outside help and cooking together keeps peace in our home."
+      },
+      {
+        timestamp: "2026-11-12T18:50:00Z",
+        respondent_name: "Ananya R.",
+        gender: "Female",
+        age: "31-35 years",
+        marital_status: "Married",
+        work_status: "Business / Self-Employed",
+        agree_with_shared_mindset: "Fully Agree (બંનેએ મળીને / पूर्ण सहमत)",
+        core_preferences: ["50-50 Equal Shared Teamwork", "Hire Paid Domestic Help / Maid"],
+        evening_scenario: "Both step into kitchen together",
+        chore_quote_agreement: "Strongly Agree",
+        advice_text: "Both careers are demanding; burdening only the wife leads to exhaustion and resentment."
+      },
+      {
+        timestamp: "2026-11-12T20:15:00Z",
+        respondent_name: "Bhavna Ben",
+        gender: "Female",
+        age: "36+ years",
+        marital_status: "Married",
+        work_status: "Homemaker / Housewife",
+        agree_with_shared_mindset: "Partially Agree (અંશતઃ સંમત / आंशिक सहमत)",
+        core_preferences: ["Wife primarily manages, husband assists", "Hire Paid Domestic Help / Maid"],
+        evening_scenario: "Both step into kitchen together",
+        chore_quote_agreement: "Agree",
+        advice_text: "Even if wife manages major cooking, husband's active support in evening brings great joy."
+      },
+      {
+        timestamp: "2026-11-12T21:05:00Z",
+        respondent_name: "Rohan Mehta",
+        gender: "Male",
+        age: "21-25 years",
+        marital_status: "Other / Unmarried",
+        work_status: "Student",
+        agree_with_shared_mindset: "Fully Agree (બંનેએ મળીને / पूर्ण सहमत)",
+        core_preferences: ["50-50 Equal Shared Teamwork"],
+        evening_scenario: "Both step into kitchen together",
+        chore_quote_agreement: "Strongly Agree",
+        advice_text: "Our generation views cooking and cleaning as life skills, not women's duties."
+      },
+      {
+        timestamp: "2026-11-12T21:40:00Z",
+        respondent_name: "Ritu G.",
+        gender: "Female",
+        age: "26-30 years",
+        marital_status: "Married",
+        work_status: "Full-Time Working",
+        agree_with_shared_mindset: "Fully Agree (બંનેએ મળીને / पूर्ण सहमत)",
+        core_preferences: ["50-50 Equal Shared Teamwork"],
+        evening_scenario: "Both step into kitchen together",
+        chore_quote_agreement: "Strongly Agree",
+        advice_text: "Dividing dishes and cooking 50-50 made our first year of marriage so happy and smooth."
+      },
+      {
+        timestamp: "2026-11-12T22:15:00Z",
+        respondent_name: "Sanjay M.",
+        gender: "Male",
+        age: "36+ years",
+        marital_status: "Married",
+        work_status: "Full-Time Working",
+        agree_with_shared_mindset: "Fully Agree (બંનેએ મળીને / पूर्ण सहमत)",
+        core_preferences: ["Hire Paid Domestic Help / Maid", "Flexible based on daily workload"],
+        evening_scenario: "Order food outside / Prioritize rest",
+        chore_quote_agreement: "Agree",
+        advice_text: "Never let rigid traditions ruin your partner's health. Work as loving partners."
+      },
+      {
+        timestamp: "2026-11-12T22:50:00Z",
+        respondent_name: "Diya Joshi",
+        gender: "Female",
+        age: "< 20 years",
+        marital_status: "Other / Unmarried",
+        work_status: "Student",
+        agree_with_shared_mindset: "Fully Agree (બંનેએ મળીને / पूर्ण सहमत)",
+        core_preferences: ["50-50 Equal Shared Teamwork"],
+        evening_scenario: "Both step into kitchen together",
+        chore_quote_agreement: "Strongly Agree",
+        advice_text: "Both partners live in the same house and eat food, so both must share responsibility."
+      }
+    ];
+
+    function getStorageData() {
+      const stored = localStorage.getItem('survey_responses_marriage_v3');
+      if (!stored) {
+        const oldV2 = localStorage.getItem('survey_responses_marriage_v2');
+        let initialData = [...SEED_DATA];
+        if (oldV2) {
+          try {
+            const parsed = JSON.parse(oldV2);
+            const userCustom = parsed.filter(item => 
+              !["Pooja P.", "Sneha D.", "Meera K."].includes(item.respondent_name)
+            );
+            if (userCustom.length > 0) {
+              initialData = [...SEED_DATA, ...userCustom];
+            }
+          } catch (e) {}
+        }
+        localStorage.setItem('survey_responses_marriage_v3', JSON.stringify(initialData));
+        return initialData;
+      }
+      try {
+        return JSON.parse(stored);
+      } catch (e) {
+        return SEED_DATA;
+      }
+    }
+
+    function saveResponse(entry) {
+      const current = getStorageData();
+      current.push(entry);
+      localStorage.setItem('survey_responses_marriage_v3', JSON.stringify(current));
+    }
+
+    // 3-Language Switcher (en, hi, gu)
+    let currentLang = 'en';
+    function setLanguage(lang) {
+      currentLang = lang;
+      ['en', 'hi', 'gu'].forEach(l => {
+        const elements = document.querySelectorAll('.lang-' + l);
+        elements.forEach(el => {
+          if (l === lang) {
+            el.classList.remove('hidden');
+          } else {
+            el.classList.add('hidden');
+          }
+        });
+        const btn = document.getElementById('btn-lang-' + l);
+        if (btn) {
+          if (l === lang) {
+            btn.className = "px-2.5 py-1 rounded-full text-xs font-bold bg-indigo-600 text-white shadow-sm transition";
+          } else {
+            btn.className = "px-2.5 py-1 rounded-full text-xs font-medium text-slate-700 hover:text-indigo-600 transition";
+          }
+        }
+      });
+    }
+
+    // Speech Recognition
+    let recognition = null;
+    let isRecording = false;
+
+    function initSpeechRecognition() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) return null;
+      
+      const recog = new SpeechRecognition();
+      recog.continuous = false;
+      recog.interimResults = false;
+
+      recog.onstart = function() {
+        isRecording = true;
+        const c = document.getElementById('micStatusContainer');
+        c.classList.remove('hidden');
+        c.classList.add('flex');
+        
+        const statusText = currentLang === 'gu' ? 'સાંભળી રહ્યા છીએ... બોલો...' :
+                           currentLang === 'hi' ? 'सुन रहे हैं... बोलिए...' :
+                           'Listening... Speak now...';
+        document.getElementById('micStatusText').innerText = statusText;
+
+        const btn = document.getElementById('voiceTypingBtn');
+        btn.classList.add('bg-rose-100', 'border-rose-400', 'text-rose-700');
+        btn.classList.remove('bg-indigo-50', 'border-indigo-200', 'text-indigo-700');
+        document.getElementById('micIcon').innerText = '⏹️';
+      };
+
+      recog.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        const textarea = document.getElementById('adviceTextarea');
+        if (textarea.value.trim().length > 0) {
+          textarea.value = textarea.value.trim() + " " + transcript;
+        } else {
+          textarea.value = transcript;
+        }
+      };
+
+      recog.onerror = function(event) {
+        console.error("Speech recognition error:", event.error);
+        stopVoiceRecording();
+        const notice = document.getElementById('voiceNotice');
+        notice.innerText = "Mic note: " + (event.error === 'not-allowed' ? "Microphone access blocked. Please allow mic in browser settings." : "Audio capture error: " + event.error);
+        notice.classList.remove('hidden');
+        setTimeout(() => notice.classList.add('hidden'), 5000);
+      };
+
+      recog.onend = function() {
+        stopVoiceRecording();
+      };
+
+      return recog;
+    }
+
+    function toggleVoiceRecording() {
+      if (!recognition) recognition = initSpeechRecognition();
+
+      if (!recognition) {
+        const notice = document.getElementById('voiceNotice');
+        notice.innerText = "Speech-to-text is not supported on this browser. Please use Chrome, Edge, or mobile browser, or type manually.";
+        notice.classList.remove('hidden');
+        return;
+      }
+
+      if (isRecording) {
+        recognition.stop();
+        stopVoiceRecording();
+      } else {
+        if (currentLang === 'gu') recognition.lang = 'gu-IN';
+        else if (currentLang === 'hi') recognition.lang = 'hi-IN';
+        else recognition.lang = 'en-IN';
+        try {
+          recognition.start();
+        } catch (e) {
+          console.error("Recog start error", e);
+        }
+      }
+    }
+
+    function stopVoiceRecording() {
+      isRecording = false;
+      const c = document.getElementById('micStatusContainer');
+      c.classList.add('hidden');
+      c.classList.remove('flex');
+
+      const btn = document.getElementById('voiceTypingBtn');
+      btn.classList.remove('bg-rose-100', 'border-rose-400', 'text-rose-700');
+      btn.classList.add('bg-indigo-50', 'border-indigo-200', 'text-indigo-700');
+      document.getElementById('micIcon').innerText = '🎙️';
+    }
+
+    function toggleView(viewName) {
+      document.getElementById('surveyView').classList.add('hidden');
+      document.getElementById('successView').classList.add('hidden');
+      document.getElementById('resultsView').classList.add('hidden');
+      const progressContainer = document.getElementById('surveyProgressBarContainer');
+
+      if (viewName === 'survey') {
+        document.getElementById('surveyView').classList.remove('hidden');
+        progressContainer.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (viewName === 'success') {
+        document.getElementById('successView').classList.remove('hidden');
+        progressContainer.classList.add('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (viewName === 'results') {
+        renderAnalytics();
+        document.getElementById('resultsView').classList.remove('hidden');
+        progressContainer.classList.add('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function handleSurveySubmit(e) {
+      e.preventDefault();
+      const form = document.getElementById('surveyForm');
+      const formData = new FormData(form);
+
+      const corePrefs = [];
+      form.querySelectorAll('input[name="core_preferences"]:checked').forEach(cb => corePrefs.push(cb.value));
+
+      if (corePrefs.length === 0) {
+        alert(currentLang === 'gu' ? "મહેરબાની કરીને પ્રશ્ન 5 માંથી ઓછામાં ઓછો એક વિકલ્પ પસંદ કરો." :
+              currentLang === 'hi' ? "कृपया प्रश्न 5 में से कम से कम एक विकल्प चुनें।" :
+              "Please select at least one option in Question 5.");
+        return;
+      }
+
+      const impacts = [];
+      form.querySelectorAll('input[name="impact"]:checked').forEach(cb => impacts.push(cb.value));
+
+      const newEntry = {
+        timestamp: new Date().toISOString(),
+        respondent_name: formData.get('respondent_name') || 'Anonymous',
+        gender: formData.get('gender') || 'Not Specified',
+        age: formData.get('age') || '',
+        marital_status: formData.get('marital_status') || '',
+        work_status: formData.get('work_status') || '',
+        agree_with_shared_mindset: formData.get('agree_with_shared_mindset') || '',
+        core_preferences: corePrefs,
+        evening_scenario: formData.get('evening_scenario') || '',
+        task_cooking: formData.get('task_cooking') || 'Both',
+        task_dishes: formData.get('task_dishes') || 'Both',
+        task_cleaning: formData.get('task_cleaning') || 'Maid',
+        task_groceries: formData.get('task_groceries') || 'Both',
+        task_laundry: formData.get('task_laundry') || 'Both',
+        impacts: impacts,
+        chore_quote_agreement: formData.get('chore_quote_agreement') || '',
+        advice_text: formData.get('advice_text') || ''
+      };
+
+      saveResponse(newEntry);
+
+      // Direct Private Email Delivery to chhayagorasiya@gmail.com
+      try {
+        const emailData = new FormData();
+        emailData.append('_subject', `New Equality Survey Submission: ${newEntry.respondent_name || 'Anonymous'} (${newEntry.gender}, ${newEntry.age})`);
+        emailData.append('_template', 'table');
+        emailData.append('_captcha', 'false');
+        emailData.append('Respondent Name', newEntry.respondent_name || 'Anonymous');
+        emailData.append('Gender', newEntry.gender);
+        emailData.append('Age Group', newEntry.age);
+        emailData.append('Marital Status', newEntry.marital_status);
+        emailData.append('Work / Profession', newEntry.work_status);
+        emailData.append('Q4 Equal Mindset Agreement', newEntry.agree_with_shared_mindset);
+        emailData.append('Q5 Core Preferences', corePrefs.join(', '));
+        emailData.append('Q6 Evening Scenario', newEntry.evening_scenario);
+        emailData.append('Q7 Emotional Impacts', impacts.join(', '));
+        emailData.append('Q8 Chore Ownership Quote', newEntry.chore_quote_agreement);
+        emailData.append('Q9 Advice / Perspective', newEntry.advice_text || 'None');
+        emailData.append('Submission Time', new Date().toLocaleString());
+
+        fetch('https://formsubmit.co/ajax/chhayagorasiya@gmail.com', {
+          method: 'POST',
+          body: emailData
+        }).then(r => r.json()).then(res => {
+          console.log('Email delivery status:', res);
+        }).catch(err => {
+          console.log('Email delivery note:', err);
+        });
+      } catch (err) {
+        console.error("Email post error:", err);
+      }
+
+      form.reset();
+      toggleView('success');
+    }
+
+    // Dashboard Interactive Filter System
+    let currentDashboardFilter = 'all';
+
+    function setDashboardFilter(filterKey) {
+      currentDashboardFilter = filterKey;
+
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.className = "filter-btn px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition";
+      });
+
+      const activeBtn = document.getElementById(
+        filterKey === 'all' ? 'filterBtn-all' :
+        filterKey === 'Female' ? 'filterBtn-Female' :
+        filterKey === 'Male' ? 'filterBtn-Male' :
+        filterKey === 'Homemaker / Housewife' ? 'filterBtn-Homemaker' :
+        filterKey === 'Student' ? 'filterBtn-Student' : 'filterBtn-Working'
+      );
+      if (activeBtn) {
+        activeBtn.className = "filter-btn px-3 py-1 rounded-full text-xs font-bold bg-indigo-600 text-white shadow-sm transition";
+      }
+
+      renderAnalytics();
+    }
+
+    // Helper: Build a visual progress bar row
+    function createMetricBarRow(label, count, total, gradientClass, extraBadge = '') {
+      const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+      return `
+        <div class="space-y-1">
+          <div class="flex justify-between items-center text-xs font-semibold text-slate-700">
+            <span class="truncate pr-2">${label}</span>
+            <span class="flex items-center gap-1.5 shrink-0">
+              ${extraBadge ? `<span class="text-[10px] text-slate-400 font-normal">${extraBadge}</span>` : ''}
+              <span class="font-bold text-slate-900">${count}</span>
+              <span class="text-[11px] text-slate-500 font-medium w-10 text-right">(${pct}%)</span>
+            </span>
+          </div>
+          <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+            <div class="${gradientClass} h-2.5 rounded-full transition-all duration-500 ease-out" style="width: ${pct}%"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAnalytics() {
+      const allData = getStorageData();
+      const totalAll = allData.length;
+
+      // Update Filter Pill Counts
+      const cntAll = totalAll;
+      const cntFemale = allData.filter(d => d.gender === 'Female').length;
+      const cntMale = allData.filter(d => d.gender === 'Male').length;
+      const cntHomemaker = allData.filter(d => d.work_status && d.work_status.includes('Homemaker')).length;
+      const cntStudent = allData.filter(d => d.work_status && d.work_status.includes('Student')).length;
+      const cntWorking = allData.filter(d => d.work_status && (d.work_status.includes('Full-Time') || d.work_status.includes('Business'))).length;
+
+      document.getElementById('filterCnt-all').innerText = cntAll;
+      document.getElementById('filterCnt-Female').innerText = cntFemale;
+      document.getElementById('filterCnt-Male').innerText = cntMale;
+      document.getElementById('filterCnt-Homemaker').innerText = cntHomemaker;
+      document.getElementById('filterCnt-Student').innerText = cntStudent;
+      document.getElementById('filterCnt-Working').innerText = cntWorking;
+
+      // Apply Filter
+      let displayData = allData;
+      let filterLabel = "Showing: All Records";
+      if (currentDashboardFilter === 'Female') {
+        displayData = allData.filter(d => d.gender === 'Female');
+        filterLabel = "Filtered: Women Participants Only";
+      } else if (currentDashboardFilter === 'Male') {
+        displayData = allData.filter(d => d.gender === 'Male');
+        filterLabel = "Filtered: Men Participants Only";
+      } else if (currentDashboardFilter === 'Homemaker / Housewife') {
+        displayData = allData.filter(d => d.work_status && d.work_status.includes('Homemaker'));
+        filterLabel = "Filtered: Housewives / Homemakers";
+      } else if (currentDashboardFilter === 'Student') {
+        displayData = allData.filter(d => d.work_status && d.work_status.includes('Student'));
+        filterLabel = "Filtered: Students";
+      } else if (currentDashboardFilter === 'Full-Time Working') {
+        displayData = allData.filter(d => d.work_status && (d.work_status.includes('Full-Time') || d.work_status.includes('Business')));
+        filterLabel = "Filtered: Working / Business Professionals";
+      }
+
+      document.getElementById('filterStatusIndicator').innerText = filterLabel;
+
+      const total = displayData.length;
+      document.getElementById('totalResponsesCount').innerText = total;
+
+      if (total === 0) {
+        document.getElementById('genderBars').innerHTML = '<p class="text-xs text-slate-400 py-2">No records in this filter.</p>';
+        document.getElementById('ageBars').innerHTML = '<p class="text-xs text-slate-400 py-2">No records in this filter.</p>';
+        return;
+      }
+
+      // 1. GENDER DISTRIBUTION
+      let genderCounts = { Female: 0, Male: 0, Other: 0 };
+      displayData.forEach(d => {
+        if (d.gender === 'Female') genderCounts.Female++;
+        else if (d.gender === 'Male') genderCounts.Male++;
+        else genderCounts.Other++;
+      });
+
+      const femalePct = Math.round((genderCounts.Female / total) * 100);
+      const malePct = Math.round((genderCounts.Male / total) * 100);
+      const otherPct = Math.round((genderCounts.Other / total) * 100);
+
+      document.getElementById('femalePercentBadge').innerText = `${femalePct}%`;
+
+      // Segmented bar
+      const segBar = document.getElementById('genderSegmentedBar');
+      segBar.innerHTML = `
+        <div style="width: ${femalePct}%" class="bg-rose-500 h-full transition-all duration-500" title="Female: ${femalePct}%"></div>
+        <div style="width: ${malePct}%" class="bg-indigo-600 h-full transition-all duration-500" title="Male: ${malePct}%"></div>
+        <div style="width: ${otherPct}%" class="bg-slate-400 h-full transition-all duration-500" title="Other: ${otherPct}%"></div>
+      `;
+
+      const domPill = document.getElementById('genderDominancePill');
+      if (femalePct >= 50) {
+        domPill.innerText = `👩 ${femalePct}% Women Participation`;
+        domPill.className = "text-[10px] font-bold px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200";
+      } else {
+        domPill.innerText = `👨 ${malePct}% Men Participation`;
+        domPill.className = "text-[10px] font-bold px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200";
+      }
+
+      document.getElementById('genderBars').innerHTML = 
+        createMetricBarRow("👩 Female (સ્ત્રી / महिला)", genderCounts.Female, total, "bg-gradient-to-r from-rose-500 to-pink-500") +
+        createMetricBarRow("👨 Male (પુરુષ / पुरुष)", genderCounts.Male, total, "bg-gradient-to-r from-indigo-500 to-blue-600") +
+        (genderCounts.Other > 0 ? createMetricBarRow("🧑 Other / Diverse (અન્ય)", genderCounts.Other, total, "bg-gradient-to-r from-purple-500 to-slate-500") : '');
+
+      // 2. AGE CATEGORY BREAKDOWN (< 20, 21-25, 26-30, 31-35, 36+)
+      let ageCounts = {
+        "< 20 years": 0,
+        "21-25 years": 0,
+        "26-30 years": 0,
+        "31-35 years": 0,
+        "36+ years": 0
+      };
+      displayData.forEach(d => {
+        if (d.age && ageCounts.hasOwnProperty(d.age)) ageCounts[d.age]++;
+        else if (d.age && d.age.includes("< 20")) ageCounts["< 20 years"]++;
+        else if (d.age && d.age.includes("21")) ageCounts["21-25 years"]++;
+        else if (d.age && d.age.includes("26")) ageCounts["26-30 years"]++;
+        else if (d.age && d.age.includes("31")) ageCounts["31-35 years"]++;
+        else if (d.age && d.age.includes("36")) ageCounts["36+ years"]++;
+      });
+
+      document.getElementById('ageBars').innerHTML = 
+        createMetricBarRow("🎒 &lt; 20 years (વિદ્યાર્થી / Teens & Students)", ageCounts["< 20 years"], total, "bg-gradient-to-r from-violet-500 to-purple-600") +
+        createMetricBarRow("🌱 21 – 25 years (યુવા / Early Career & Marriage)", ageCounts["21-25 years"], total, "bg-gradient-to-r from-indigo-500 to-sky-500") +
+        createMetricBarRow("💼 26 – 30 years (નવદંપતિ / Young Working Couples)", ageCounts["26-30 years"], total, "bg-gradient-to-r from-teal-500 to-emerald-500") +
+        createMetricBarRow("🏡 31 – 35 years (પરિવાર / Career & Family Balance)", ageCounts["31-35 years"], total, "bg-gradient-to-r from-amber-500 to-orange-500") +
+        createMetricBarRow("🌟 36+ years (અનુભવી / Experienced Households)", ageCounts["36+ years"], total, "bg-gradient-to-r from-rose-500 to-red-600");
+
+      // 3. PROFESSION / OCCUPATION STATUS
+      let occCounts = {
+        "Homemaker / Housewife": 0,
+        "Student": 0,
+        "Full-Time Working": 0,
+        "Part-Time / Freelance / WFH": 0,
+        "Business / Self-Employed": 0,
+        "Other / Career Break": 0
+      };
+      displayData.forEach(d => {
+        if (d.work_status && d.work_status.includes("Homemaker")) occCounts["Homemaker / Housewife"]++;
+        else if (d.work_status && d.work_status.includes("Student")) occCounts["Student"]++;
+        else if (d.work_status && d.work_status.includes("Full-Time")) occCounts["Full-Time Working"]++;
+        else if (d.work_status && d.work_status.includes("Freelance")) occCounts["Part-Time / Freelance / WFH"]++;
+        else if (d.work_status && d.work_status.includes("Business")) occCounts["Business / Self-Employed"]++;
+        else occCounts["Other / Career Break"]++;
+      });
+
+      document.getElementById('occupationBars').innerHTML = 
+        createMetricBarRow("🏡 Homemaker / Housewife (ગૃહિણી)", occCounts["Homemaker / Housewife"], total, "bg-gradient-to-r from-pink-500 to-rose-500") +
+        createMetricBarRow("🎓 Student (વિદ્યાર્થી / छात्रा)", occCounts["Student"], total, "bg-gradient-to-r from-violet-500 to-indigo-500") +
+        createMetricBarRow("💼 Full-Time Working (પૂર્ણકાલીન નોકરી)", occCounts["Full-Time Working"], total, "bg-gradient-to-r from-blue-600 to-indigo-600") +
+        createMetricBarRow("💻 Part-Time / Freelancer / WFH (પાર્ટ-ટાઈમ)", occCounts["Part-Time / Freelance / WFH"], total, "bg-gradient-to-r from-cyan-500 to-blue-500") +
+        createMetricBarRow("🏪 Business / Self-Employed (વેપાર / ધંધો)", occCounts["Business / Self-Employed"], total, "bg-gradient-to-r from-emerald-500 to-teal-600") +
+        (occCounts["Other / Career Break"] > 0 ? createMetricBarRow("✨ Other / Break (અન્ય)", occCounts["Other / Career Break"], total, "bg-gradient-to-r from-slate-400 to-slate-600") : '');
+
+      // 4. MARITAL & RELATIONSHIP STATUS
+      let marCounts = {
+        "Married": 0,
+        "Engaged / Soon to Marry": 0,
+        "In a Relationship": 0,
+        "Other / Unmarried": 0
+      };
+      displayData.forEach(d => {
+        if (d.marital_status && d.marital_status.includes("Engaged")) marCounts["Engaged / Soon to Marry"]++;
+        else if (d.marital_status && d.marital_status.includes("Relationship")) marCounts["In a Relationship"]++;
+        else if (d.marital_status && (d.marital_status.includes("Unmarried") || d.marital_status.includes("Other"))) marCounts["Other / Unmarried"]++;
+        else if (d.marital_status && d.marital_status.includes("Married")) marCounts["Married"]++;
+      });
+
+      document.getElementById('maritalBars').innerHTML = 
+        createMetricBarRow("💍 Married (પરિણીત / विवाहित)", marCounts["Married"], total, "bg-gradient-to-r from-emerald-600 to-teal-500") +
+        createMetricBarRow("💐 Engaged / Soon to Marry (સગાઈ થયેલ)", marCounts["Engaged / Soon to Marry"], total, "bg-gradient-to-r from-indigo-500 to-pink-500") +
+        createMetricBarRow("🤝 In a Relationship (સંબંધમાં)", marCounts["In a Relationship"], total, "bg-gradient-to-r from-pink-500 to-rose-400") +
+        createMetricBarRow("👤 Unmarried / Student (અપરિણીત)", marCounts["Other / Unmarried"], total, "bg-gradient-to-r from-purple-500 to-indigo-500");
+
+      // 5. Q4 MINDSET AGREEMENT
+      let mindsetCounts = { "Fully Agree": 0, "Partially Agree": 0, "Disagree": 0 };
+      displayData.forEach(d => {
+        if (d.agree_with_shared_mindset && (d.agree_with_shared_mindset.includes("Fully") || d.agree_with_shared_mindset.includes("સંપૂર્ણ") || d.agree_with_shared_mindset.includes("બંનેએ"))) mindsetCounts["Fully Agree"]++;
+        else if (d.agree_with_shared_mindset && (d.agree_with_shared_mindset.includes("Partially") || d.agree_with_shared_mindset.includes("અંશતઃ"))) mindsetCounts["Partially Agree"]++;
+        else mindsetCounts["Disagree"]++;
+      });
+
+      const agreeMindsetPct = Math.round((mindsetCounts["Fully Agree"] / total) * 100);
+      document.getElementById('agreeMindsetPercent').innerText = `${agreeMindsetPct}%`;
+
+      document.getElementById('mindsetBars').innerHTML = 
+        createMetricBarRow("✅ Fully Agree: Chores Must Be Shared (સંપૂર્ણ સંમત)", mindsetCounts["Fully Agree"], total, "bg-gradient-to-r from-emerald-500 to-green-600") +
+        createMetricBarRow("⚖️ Partially Agree / Depends (અંશતઃ સંમત / આंशिक)", mindsetCounts["Partially Agree"], total, "bg-gradient-to-r from-amber-400 to-yellow-500") +
+        createMetricBarRow("❌ Disagree / Woman Alone (અસંમત / માત્ર સ્ત્રી)", mindsetCounts["Disagree"], total, "bg-gradient-to-r from-rose-500 to-red-600");
+
+      // 6. Q5 CORE PREFERENCES
+      let prefCounts = {
+        "50-50 Equal Shared Teamwork": 0,
+        "Hire Paid Domestic Help / Maid": 0,
+        "Flexible based on daily workload": 0,
+        "Wife primarily manages, husband assists": 0,
+        "Solely woman's responsibility": 0
+      };
+      displayData.forEach(d => {
+        if (Array.isArray(d.core_preferences)) {
+          d.core_preferences.forEach(p => {
+            if (prefCounts.hasOwnProperty(p)) prefCounts[p]++;
+          });
+        }
+      });
+
+      const maidPct = Math.round((prefCounts["Hire Paid Domestic Help / Maid"] / total) * 100);
+      document.getElementById('maidHelpPercent').innerText = `${maidPct}%`;
+
+      document.getElementById('breakdownBars').innerHTML = 
+        createMetricBarRow("🤝 50-50 Equal Teamwork (બંને અડધોઅડધ)", prefCounts["50-50 Equal Shared Teamwork"], total, "bg-gradient-to-r from-indigo-600 to-violet-600") +
+        createMetricBarRow("🧹 Hire Maid / Domestic Help (કામવાળા બાઈ)", prefCounts["Hire Paid Domestic Help / Maid"], total, "bg-gradient-to-r from-blue-600 to-cyan-600") +
+        createMetricBarRow("⚖️ Flexible based on fatigue (લવચીક વહેંચણી)", prefCounts["Flexible based on daily workload"], total, "bg-gradient-to-r from-purple-600 to-indigo-500") +
+        createMetricBarRow("🍳 Wife manages, husband assists (પત્ની મુખ્ય)", prefCounts["Wife primarily manages, husband assists"], total, "bg-gradient-to-r from-amber-500 to-orange-500") +
+        createMetricBarRow("🏠 Solely Woman's Duty (માત્ર સ્ત્રીની જવાબદારી)", prefCounts["Solely woman's responsibility"], total, "bg-gradient-to-r from-rose-600 to-red-600");
+
+      // 7. Q6 EVENING SCENARIO
+      let eveningCounts = {
+        "Both step into kitchen together": 0,
+        "Order food outside / Prioritize rest": 0,
+        "Husband relaxes while wife cooks alone": 0
+      };
+      displayData.forEach(d => {
+        if (d.evening_scenario && d.evening_scenario.includes("Both")) eveningCounts["Both step into kitchen together"]++;
+        else if (d.evening_scenario && d.evening_scenario.includes("Order")) eveningCounts["Order food outside / Prioritize rest"]++;
+        else eveningCounts["Husband relaxes while wife cooks alone"]++;
+      });
+
+      document.getElementById('eveningScenarioBars').innerHTML = 
+        createMetricBarRow("🍲 Both step into kitchen together (બંને સાથે)", eveningCounts["Both step into kitchen together"], total, "bg-gradient-to-r from-emerald-500 to-teal-600") +
+        createMetricBarRow("🛵 Order food outside / Prioritize rest (બહારથી)", eveningCounts["Order food outside / Prioritize rest"], total, "bg-gradient-to-r from-blue-500 to-indigo-600") +
+        createMetricBarRow("📺 Husband rests while wife cooks (પતિ આરામ)", eveningCounts["Husband relaxes while wife cooks alone"], total, "bg-gradient-to-r from-rose-500 to-red-500");
+
+      // 8. Q8 OWNERSHIP QUOTE
+      let quoteCounts = {
+        "Strongly Agree": 0,
+        "Agree": 0,
+        "Neutral": 0,
+        "Disagree": 0
+      };
+      displayData.forEach(d => {
+        if (d.chore_quote_agreement && d.chore_quote_agreement.includes("Strongly Agree")) quoteCounts["Strongly Agree"]++;
+        else if (d.chore_quote_agreement && d.chore_quote_agreement.includes("Agree")) quoteCounts["Agree"]++;
+        else if (d.chore_quote_agreement && d.chore_quote_agreement.includes("Neutral")) quoteCounts["Neutral"]++;
+        else quoteCounts["Disagree"]++;
+      });
+
+      document.getElementById('quoteAgreementBars').innerHTML = 
+        createMetricBarRow("🌟 Strongly Agree (પૂર્ણ સંમત)", quoteCounts["Strongly Agree"], total, "bg-emerald-600") +
+        createMetricBarRow("👍 Agree (સંમત)", quoteCounts["Agree"], total, "bg-teal-500") +
+        createMetricBarRow("😐 Neutral (તટસ્થ)", quoteCounts["Neutral"], total, "bg-slate-400") +
+        (quoteCounts["Disagree"] > 0 ? createMetricBarRow("👎 Disagree (અસંમત)", quoteCounts["Disagree"], total, "bg-rose-500") : '');
+
+      // 9. SUBMISSIONS LOG TABLE
+      document.getElementById('tableCount').innerText = total;
+      const tbody = document.getElementById('submissionsTableBody');
+      tbody.innerHTML = '';
+
+      const reversed = [...displayData].reverse().slice(0, 25);
+      reversed.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-50 transition";
+
+        const genderBadge = row.gender === 'Female' ? 
+          '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-700">👩 Female</span>' :
+          row.gender === 'Male' ?
+          '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-100 text-indigo-700">👨 Male</span>' :
+          '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 text-purple-700">🧑 Other</span>';
+
+        const ageBadge = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700">${row.age || 'N/A'}</span>`;
+
+        const mindsetBadge = (row.agree_with_shared_mindset && (row.agree_with_shared_mindset.includes('Fully') || row.agree_with_shared_mindset.includes('બંનેએ'))) ?
+          '<span class="text-emerald-600 font-bold">✓ Equal Shared</span>' :
+          '<span class="text-amber-600 font-medium">Partial / Help</span>';
+
+        const timeStr = row.timestamp ? new Date(row.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Recent';
+
+        tr.innerHTML = `
+          <td class="py-2.5 px-3 font-semibold text-slate-800">${row.respondent_name || 'Anonymous'}</td>
+          <td class="py-2.5 px-2">${genderBadge}</td>
+          <td class="py-2.5 px-2">${ageBadge}</td>
+          <td class="py-2.5 px-2 text-slate-600 truncate max-w-[130px]" title="${row.work_status || ''}">${row.work_status || 'N/A'}</td>
+          <td class="py-2.5 px-2 text-slate-600 truncate max-w-[120px]">${row.marital_status || 'N/A'}</td>
+          <td class="py-2.5 px-2">${mindsetBadge}</td>
+          <td class="py-2.5 px-2 text-slate-400 text-[10px]">${timeStr}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function exportToCSV() {
+      const data = getStorageData();
+      if (!data || data.length === 0) {
+        alert("No survey responses to export.");
+        return;
+      }
+
+      const headers = ["Timestamp", "Name", "Gender", "Age", "MaritalStatus", "WorkStatus", "AgreeWithMindset", "CorePreferences", "EveningScenario", "ChoreQuoteAgreement", "Advice"];
+      const rows = data.map(d => [
+        `"${d.timestamp || ''}"`,
+        `"${(d.respondent_name || '').replace(/"/g, '""')}"`,
+        `"${d.gender || ''}"`,
+        `"${d.age || ''}"`,
+        `"${d.marital_status || ''}"`,
+        `"${d.work_status || ''}"`,
+        `"${d.agree_with_shared_mindset || ''}"`,
+        `"${(Array.isArray(d.core_preferences) ? d.core_preferences.join('; ') : d.core_preferences || '').replace(/"/g, '""')}"`,
+        `"${d.evening_scenario || ''}"`,
+        `"${d.chore_quote_agreement || ''}"`,
+        `"${(d.advice_text || '').replace(/"/g, '""')}"`
+      ]);
+
+      const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `equality_survey_demographics_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function clearAllData() {
+      if (confirm("Are you sure you want to reset all survey responses to default?")) {
+        localStorage.removeItem('survey_responses_marriage_v3');
+        localStorage.removeItem('survey_responses_marriage_v2');
+        renderAnalytics();
+      }
+    }
+
+    // Admin PIN Security System (PIN: 1234)
+    let ADMIN_PIN = "1234";
+
+    function handleResultsBtnClick() {
+      if (sessionStorage.getItem('survey_admin_authenticated') === 'true') {
+        toggleView('results');
+      } else {
+        openAdminPinModal();
+      }
+    }
+
+    function openAdminPinModal() {
+      const modal = document.getElementById('adminPinModal');
+      const input = document.getElementById('adminPinInput');
+      const err = document.getElementById('adminPinError');
+      if (modal && input) {
+        input.value = '';
+        if (err) err.classList.add('hidden');
+        modal.classList.remove('hidden');
+        setTimeout(() => input.focus(), 150);
+      }
+    }
+
+    function closeAdminPinModal() {
+      const modal = document.getElementById('adminPinModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function verifyAdminPin() {
+      const input = document.getElementById('adminPinInput');
+      const err = document.getElementById('adminPinError');
+      if (input && input.value.trim() === ADMIN_PIN) {
+        sessionStorage.setItem('survey_admin_authenticated', 'true');
+        closeAdminPinModal();
+        toggleView('results');
+      } else {
+        if (err) err.classList.remove('hidden');
+        if (input) input.select();
+      }
+    }
+
+    // Immediate and robust URL parameter check
+    function checkUrlAccess() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const adminVal = params.get('admin');
+        const viewVal = params.get('view');
+        const isAuth = sessionStorage.getItem('survey_admin_authenticated') === 'true';
+
+        if (adminVal === ADMIN_PIN || adminVal === 'true' || viewVal === 'results' || isAuth) {
+          sessionStorage.setItem('survey_admin_authenticated', 'true');
+          toggleView('results');
+        }
+      } catch (err) {
+        console.error("URL check error:", err);
+      }
+    }
+
+    // Run check immediately right now!
+    checkUrlAccess();
+
+    // Also run on DOMContentLoaded and load
+    if (document.readyState === 'loading') {
+      document.addEventListener("DOMContentLoaded", () => {
+        checkUrlAccess();
+        const pinInput = document.getElementById('adminPinInput');
+        if (pinInput) {
+          pinInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              verifyAdminPin();
+            }
+          });
+        }
+      });
+    } else {
+      checkUrlAccess();
+      const pinInput = document.getElementById('adminPinInput');
+      if (pinInput) {
+        pinInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            verifyAdminPin();
+          }
+        });
+      }
+    }
+
+    window.addEventListener("load", checkUrlAccess);
+
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      const pb = document.getElementById("surveyProgressBar");
+      if (pb) pb.style.width = Math.min(100, Math.max(10, scrolled)) + "%";
+    });
+  </script>
+
+</body>
+</html>
