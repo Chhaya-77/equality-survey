@@ -57,13 +57,7 @@
           <button type="button" id="btn-lang-gu" onclick="setLanguage('gu')" class="px-2.5 py-1 rounded-full text-xs font-medium text-slate-700 hover:text-indigo-600 transition">ગુજરાતી</button>
         </div>
 
-        <!-- Protected Results Button (PIN: 1234) -->
-        <button type="button" onclick="handleResultsBtnClick()" class="px-3 py-1.5 rounded-full border border-indigo-200 bg-indigo-50 hover:bg-indigo-100 text-xs font-bold text-indigo-700 shadow-sm flex items-center gap-1 transition active:scale-95">
-          <span>📊</span>
-          <span class="lang-en">Results</span>
-          <span class="lang-hi hidden">परिणाम</span>
-          <span class="lang-gu hidden">પરિણામ</span>
-        </button>
+
       </div>
     </div>
 
@@ -564,88 +558,39 @@
                  <span class="lang-gu hidden">તમારા વાસ્તવિક જીવનમાં, શું તમારા પાર્ટનર આ બધા ઘરકામ કરે છે અને ફેમિનિઝમ / સ્ત્રી સમાનતાને ટેકો આપે છે?</span>
               <span class="text-rose-500">*</span>
             </label>
-            <div class="space-y-2">
-              <!-- Option 1: Actively does chores & supports feminism -->
-              <label class="option-card flex items-start p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-emerald-400 text-xs sm:text-sm">
-                <input type="radio" name="partner_chores_feminism" value="Actively shares chores & supports feminism" required class="text-indigo-600 mt-1 mr-2.5">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+              <!-- Option 1: Yes -->
+              <label class="option-card flex items-center p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-emerald-400 text-xs sm:text-sm">
+                <input type="radio" name="partner_chores_feminism" value="Yes" required class="text-indigo-600 mr-2.5">
                 <div>
-                  <span class="font-bold text-emerald-700 block">
-                    ✨ <span class="lang-en">Yes, fully! Actively shares chores & genuinely supports feminism/equality</span>
-                       <span class="lang-hi hidden">हाँ, पूरी तरह! घर के काम बराबर करते हैं और फेमिनिज्म/समानता का सच्चा समर्थन करते हैं</span>
-                       <span class="lang-gu hidden">હા, સંપૂર્ણપણે! ઘરકામ સમાન રીતે કરે છે અને ફેમિનિઝમ/સ્ત્રી સમાનતાને સાચો ટેકો આપે છે</span>
-                  </span>
-                  <span class="text-[11px] text-slate-500">
-                    <span class="lang-en">Takes proactive ownership of daily chores without needing reminders; treats home as 50-50 team.</span>
-                    <span class="lang-hi hidden">बिना कहे रोज़मर्रा के काम खुद से संभालते हैं; घर को 50-50 की सच्ची साझेदारी मानते हैं।</span>
-                    <span class="lang-gu hidden">કહ્યા વગર દરરોજ પોતાની જાતે ઘરકામ સંભાળે છે; ઘરને 50-50ની સાચી ભાગીદારી ગણે છે.</span>
+                  <span class="font-bold text-emerald-700 block text-sm sm:text-base">
+                    ✅ <span class="lang-en">Yes</span>
+                       <span class="lang-hi hidden">हाँ</span>
+                       <span class="lang-gu hidden">હા</span>
                   </span>
                 </div>
               </label>
 
-              <!-- Option 2: Supports feminism in words, does few chores -->
-              <label class="option-card flex items-start p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-amber-400 text-xs sm:text-sm">
-                <input type="radio" name="partner_chores_feminism" value="Supports feminism in words, but does very few chores" class="text-indigo-600 mt-1 mr-2.5">
+              <!-- Option 2: No -->
+              <label class="option-card flex items-center p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-rose-400 text-xs sm:text-sm">
+                <input type="radio" name="partner_chores_feminism" value="No" class="text-indigo-600 mr-2.5">
                 <div>
-                  <span class="font-bold text-amber-700 block">
-                    💬 <span class="lang-en">Supports feminism in words, but does very few chores in practice</span>
-                       <span class="lang-hi hidden">बातों में फेमिनिज्म का समर्थन करते हैं, पर असल में घर का काम बहुत कम करते हैं</span>
-                       <span class="lang-gu hidden">બોલવામાં ફેમિનિઝમ સ્વીકારે છે, પણ વાસ્તવમાં ઘરકામ ઘણું ઓછું કરે છે</span>
-                  </span>
-                  <span class="text-[11px] text-slate-500">
-                    <span class="lang-en">Agrees with equality conceptually, but leaves everyday physical domestic chores to the woman.</span>
-                    <span class="lang-hi hidden">सिद्धांत में समानता से सहमत हैं, पर घर की रोजमर्रा की मेहनत महिला पर ही छोड़ देते हैं।</span>
-                    <span class="lang-gu hidden">વિચારોમાં સમાનતા સ્વીકારે છે, પણ રોજિંદી મહેનત સ્ત્રી પર જ છોડી દે છે.</span>
+                  <span class="font-bold text-rose-700 block text-sm sm:text-base">
+                    ❌ <span class="lang-en">No</span>
+                       <span class="lang-hi hidden">नहीं</span>
+                       <span class="lang-gu hidden">ના</span>
                   </span>
                 </div>
               </label>
 
-              <!-- Option 3: Helps occasionally / only when asked -->
-              <label class="option-card flex items-start p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-blue-400 text-xs sm:text-sm">
-                <input type="radio" name="partner_chores_feminism" value="Helps occasionally, only when asked or reminded" class="text-indigo-600 mt-1 mr-2.5">
+              <!-- Option 3: Currently Single / Unmarried -->
+              <label class="option-card flex items-center p-3.5 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-slate-400 text-xs sm:text-sm">
+                <input type="radio" name="partner_chores_feminism" value="Currently Single / Unmarried" class="text-indigo-600 mr-2.5">
                 <div>
-                  <span class="font-bold text-blue-700 block">
-                    ⏳ <span class="lang-en">Helps occasionally, but only when specifically asked or reminded</span>
-                       <span class="lang-hi hidden">कभी-कभार मदद करते हैं, लेकिन केवल कहने या याद दिलाने पर ही</span>
-                       <span class="lang-gu hidden">ક્યારેક-ક્યારેક મદદ કરે છે, પણ માત્ર કહેવા કે યાદ કરાવવા પર જ</span>
-                  </span>
-                  <span class="text-[11px] text-slate-500">
-                    <span class="lang-en">Does not take initiative; treats chores like a temporary favor rather than equal ownership.</span>
-                    <span class="lang-hi hidden">खुद से पहल नहीं करते; काम को अपनी ज़िम्मेदारी नहीं बल्कि एक एहसान या मदद समझते हैं।</span>
-                    <span class="lang-gu hidden">જાતે પહેલ કરતા નથી; ઘરકામને પોતાની જવાબદારી નહીં પણ ઉપકાર કે મદદ ગણે છે.</span>
-                  </span>
-                </div>
-              </label>
-
-              <!-- Option 4: Does not do chores & opposes feminism -->
-              <label class="option-card flex items-start p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-rose-400 text-xs sm:text-sm">
-                <input type="radio" name="partner_chores_feminism" value="Does not do chores & opposes/ignores feminism" class="text-indigo-600 mt-1 mr-2.5">
-                <div>
-                  <span class="font-bold text-rose-700 block">
-                    ❌ <span class="lang-en">No, does not do chores; holds traditional views / opposes feminism</span>
-                       <span class="lang-hi hidden">नहीं, कोई काम नहीं करते; पारंपरिक सोच रखते हैं और फेमिनिज्म के खिलाफ हैं</span>
-                       <span class="lang-gu hidden">ના, કોઈ ઘરકામ કરતા નથી; પરંપરાગત માનસિકતા ધરાવે છે અને ફેમિનિઝમની વિરુદ્ધ છે</span>
-                  </span>
-                  <span class="text-[11px] text-slate-500">
-                    <span class="lang-en">Believes housework is strictly a woman's duty; rejects feminism or equal chore sharing.</span>
-                    <span class="lang-hi hidden">मानते हैं कि घर का काम सिर्फ औरत का ही काम है; फेमिनिज्म या बराबरी को नकारते हैं।</span>
-                    <span class="lang-gu hidden">માને છે કે ઘરકામ ફક્ત સ્ત્રીનું જ કામ છે; સમાન વહેંચણી કે ફેમિનિઝમને નકારે છે.</span>
-                  </span>
-                </div>
-              </label>
-
-              <!-- Option 5: Not Applicable (Single / Unmarried) -->
-              <label class="option-card flex items-start p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-slate-400 text-xs sm:text-sm">
-                <input type="radio" name="partner_chores_feminism" value="Not Applicable (Single / Unmarried)" class="text-indigo-600 mt-1 mr-2.5">
-                <div>
-                  <span class="font-bold text-slate-700 block">
-                    ⚪ <span class="lang-en">Not Applicable (Currently Single / Unmarried)</span>
-                       <span class="lang-hi hidden">लागू नहीं (वर्तमान में अविवाहित / सिंगल)</span>
-                       <span class="lang-gu hidden">લાગુ પડતું નથી (હાલમાં અપરિણીત / સિંગલ)</span>
-                  </span>
-                  <span class="text-[11px] text-slate-500">
-                    <span class="lang-en">For students or unmarried individuals without a cohabiting domestic partner.</span>
-                    <span class="lang-hi hidden">विद्यार्थियों या अविवाहित लोगों के लिए जिनके पास घरेलू पार्टनर नहीं है।</span>
-                    <span class="lang-gu hidden">વિદ્યાર્થીઓ અથવા અપરિણીત વ્યક્તિઓ માટે કે જેઓ સાથે રહેતા નથી.</span>
+                  <span class="font-bold text-slate-700 block text-xs sm:text-sm">
+                    ⚪ <span class="lang-en">Currently Single / Unmarried</span>
+                       <span class="lang-hi hidden">वर्तमान में अविवाहित / सिंगल</span>
+                       <span class="lang-gu hidden">હાલમાં અપરિણીત / સિંગલ</span>
                   </span>
                 </div>
               </label>
@@ -1147,6 +1092,23 @@
         </div>
       </div>
 
+      <!-- SECTION 4: PARTICIPANT VOICES & ADVICE (SECTION 5 ANSWERS) -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-violet-600 inline-block"></span>
+            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-800">
+              💬 Section 5 Participant Advice & Voices Log (યુગલો માટે સલાહ અને પ્રતિભાવો)
+            </h3>
+          </div>
+          <span class="text-xs bg-violet-50 text-violet-700 px-2.5 py-1 rounded-full font-semibold">Real User Messages</span>
+        </div>
+        <p class="text-xs text-slate-500">Every message, advice, or perspective submitted in Section 5 ("Your Voice") appears here in real-time:</p>
+        <div id="adviceMessagesContainer" class="space-y-3">
+          <!-- Dynamically populated advice cards -->
+        </div>
+      </div>
+
       <div class="text-center pt-2 pb-4">
         <button onclick="clearAllData()" class="text-xs text-rose-500 hover:text-rose-700 hover:underline font-medium">
           🔄 Reset all local survey data to default
@@ -1167,14 +1129,14 @@
         <p class="text-xs text-slate-500 mt-1">Survey responses and analytics are private. Enter your Admin PIN to view records.</p>
       </div>
       <div>
-        <input type="password" id="adminPinInput" maxlength="10" placeholder="Enter PIN (Default: 1234)" class="w-full text-center tracking-widest text-lg font-bold p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+        <input type="password" id="adminPinInput" maxlength="10" placeholder="Enter Admin PIN" class="w-full text-center tracking-widest text-lg font-bold p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
         <p id="adminPinError" class="hidden text-xs text-rose-600 font-semibold mt-1.5">❌ Incorrect PIN. Access denied.</p>
       </div>
       <div class="flex gap-2 pt-1">
         <button type="button" onclick="closeAdminPinModal()" class="w-1/2 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 transition">Cancel</button>
         <button type="button" onclick="verifyAdminPin()" class="w-1/2 py-2.5 text-xs font-bold rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow transition">Unlock Results</button>
       </div>
-      <p class="text-[11px] text-slate-400">Default PIN: <span class="font-mono font-bold text-slate-600">1234</span></p>
+      
     </div>
   </div>
 
@@ -1554,6 +1516,11 @@
         if (tbody) {
           tbody.innerHTML = '<tr><td colspan="8" class="py-10 text-center text-slate-400 text-sm font-medium">📭 No responses recorded yet. As participants submit the survey, real records will appear here live.</td></tr>';
         }
+
+        const adviceContainer = document.getElementById('adviceMessagesContainer');
+        if (adviceContainer) {
+          adviceContainer.innerHTML = '<p class="text-xs text-slate-400 py-4 text-center">No advice messages recorded yet. Section 5 responses will appear here live.</p>';
+        }
         return;
       }
 
@@ -1722,40 +1689,26 @@
         createMetricBarRow("🛵 Order food outside / Prioritize rest (બહારથી)", eveningCounts["Order food outside / Prioritize rest"], total, "bg-gradient-to-r from-blue-500 to-indigo-600") +
         createMetricBarRow("📺 Husband rests while wife cooks (પતિ આરામ)", eveningCounts["Husband relaxes while wife cooks alone"], total, "bg-gradient-to-r from-rose-500 to-red-500");
 
-      // 7.5 Q7 PARTNER CHORES & FEMINISM SUPPORT
+      // 7.5 Q7 PARTNER CHORES & FEMINISM SUPPORT (Yes, No, Currently Single / Unmarried)
       let partnerFemCounts = {
-        "Actively shares chores & supports feminism": 0,
-        "Supports feminism in words, but does very few chores": 0,
-        "Helps occasionally, only when asked or reminded": 0,
-        "Does not do chores & opposes/ignores feminism": 0,
-        "Not Applicable (Single / Unmarried)": 0
+        "Yes": 0,
+        "No": 0,
+        "Currently Single / Unmarried": 0
       };
       displayData.forEach(d => {
-        if (d.partner_chores_feminism && d.partner_chores_feminism.includes("Actively")) {
-          partnerFemCounts["Actively shares chores & supports feminism"]++;
-        } else if (d.partner_chores_feminism && d.partner_chores_feminism.includes("words")) {
-          partnerFemCounts["Supports feminism in words, but does very few chores"]++;
-        } else if (d.partner_chores_feminism && (d.partner_chores_feminism.includes("occasionally") || d.partner_chores_feminism.includes("asked"))) {
-          partnerFemCounts["Helps occasionally, only when asked or reminded"]++;
-        } else if (d.partner_chores_feminism && (d.partner_chores_feminism.includes("opposes") || d.partner_chores_feminism.includes("traditional") || d.partner_chores_feminism.includes("not do"))) {
-          partnerFemCounts["Does not do chores & opposes/ignores feminism"]++;
-        } else if (d.partner_chores_feminism && d.partner_chores_feminism.includes("Applicable")) {
-          partnerFemCounts["Not Applicable (Single / Unmarried)"]++;
+        if (d.partner_chores_feminism === 'Yes' || (d.partner_chores_feminism && d.partner_chores_feminism.includes('Actively'))) {
+          partnerFemCounts["Yes"]++;
+        } else if (d.partner_chores_feminism === 'No' || (d.partner_chores_feminism && (d.partner_chores_feminism.includes('opposes') || d.partner_chores_feminism.includes('traditional')))) {
+          partnerFemCounts["No"]++;
         } else {
-          if (d.marital_status && (d.marital_status.includes("Unmarried") || d.marital_status.includes("Other"))) {
-            partnerFemCounts["Not Applicable (Single / Unmarried)"]++;
-          } else {
-            partnerFemCounts["Actively shares chores & supports feminism"]++;
-          }
+          partnerFemCounts["Currently Single / Unmarried"]++;
         }
       });
 
       document.getElementById('partnerFeminismBars').innerHTML = 
-        createMetricBarRow("✨ Actively shares chores & practices feminism (સક્રિય સહયોગી)", partnerFemCounts["Actively shares chores & supports feminism"], total, "bg-gradient-to-r from-emerald-500 to-teal-600") +
-        createMetricBarRow("💬 Supports in words, does few chores (માત્ર બોલવામાં સમાનતા)", partnerFemCounts["Supports feminism in words, but does very few chores"], total, "bg-gradient-to-r from-amber-500 to-yellow-600") +
-        createMetricBarRow("⏳ Helps occasionally / only when asked (કહેવા પર જ મદદ)", partnerFemCounts["Helps occasionally, only when asked or reminded"], total, "bg-gradient-to-r from-blue-500 to-indigo-600") +
-        (partnerFemCounts["Does not do chores & opposes/ignores feminism"] > 0 ? createMetricBarRow("❌ Does no chores / opposes feminism (કોઈ સહયોગ નહીં)", partnerFemCounts["Does not do chores & opposes/ignores feminism"], total, "bg-gradient-to-r from-rose-500 to-red-600") : "") +
-        createMetricBarRow("⚪ Single / Not Applicable (અપરિણીત)", partnerFemCounts["Not Applicable (Single / Unmarried)"], total, "bg-gradient-to-r from-slate-400 to-slate-500");
+        createMetricBarRow("✅ Yes (હા / हाँ)", partnerFemCounts["Yes"], total, "bg-gradient-to-r from-emerald-500 to-teal-600") +
+        createMetricBarRow("❌ No (ના / नहीं)", partnerFemCounts["No"], total, "bg-gradient-to-r from-rose-500 to-red-600") +
+        createMetricBarRow("⚪ Currently Single / Unmarried (અપરિણીત)", partnerFemCounts["Currently Single / Unmarried"], total, "bg-gradient-to-r from-slate-400 to-slate-500");
 
       // 8. Q8 OWNERSHIP QUOTE
       let quoteCounts = {
@@ -1801,15 +1754,11 @@
 
         const timeStr = row.timestamp ? new Date(row.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Recent';
 
-        const partnerBadge = (row.partner_chores_feminism && row.partner_chores_feminism.includes('Actively')) ?
-          '<span class="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full text-[10px] font-bold">✨ Active & Equal</span>' :
-          (row.partner_chores_feminism && row.partner_chores_feminism.includes('words')) ?
-          '<span class="text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full text-[10px] font-medium">💬 Words Only</span>' :
-          (row.partner_chores_feminism && row.partner_chores_feminism.includes('occasionally')) ?
-          '<span class="text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full text-[10px] font-medium">⏳ When Asked</span>' :
-          (row.partner_chores_feminism && row.partner_chores_feminism.includes('Applicable')) ?
-          '<span class="text-slate-400 text-[10px]">⚪ Single</span>' :
-          '<span class="text-rose-700 bg-rose-50 px-2 py-0.5 rounded-full text-[10px] font-medium">❌ No Chores</span>';
+        const partnerBadge = (row.partner_chores_feminism === 'Yes' || (row.partner_chores_feminism && row.partner_chores_feminism.includes('Actively'))) ?
+          '<span class="text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full text-[10px] font-bold">✅ Yes</span>' :
+          (row.partner_chores_feminism === 'No' || (row.partner_chores_feminism && row.partner_chores_feminism.includes('opposes'))) ?
+          '<span class="text-rose-700 bg-rose-50 px-2.5 py-0.5 rounded-full text-[10px] font-bold">❌ No</span>' :
+          '<span class="text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full text-[10px] font-medium">⚪ Single</span>';
 
         tr.innerHTML = `
           <td class="py-2.5 px-3 font-semibold text-slate-800">${row.respondent_name || 'Anonymous'}</td>
@@ -1823,6 +1772,25 @@
         `;
         tbody.appendChild(tr);
       });
+
+      // Render Section 5 Advice Messages
+      const adviceContainer = document.getElementById('adviceMessagesContainer');
+      if (adviceContainer) {
+        const adviceRows = displayData.filter(d => d.advice_text && d.advice_text.trim().length > 0);
+        if (adviceRows.length === 0) {
+          adviceContainer.innerHTML = '<p class="text-xs text-slate-400 py-4 text-center">No advice messages written yet. When participants write or speak advice in Section 5, it will appear here.</p>';
+        } else {
+          adviceContainer.innerHTML = adviceRows.slice().reverse().map(d => `
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-800">👤 ${d.respondent_name || 'Anonymous'} <span class="text-slate-400 font-normal">(${d.gender || ''}, ${d.age || ''}, ${d.work_status || ''})</span></span>
+                <span class="text-[10px] text-slate-400">${d.timestamp ? new Date(d.timestamp).toLocaleString() : ''}</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-700 italic bg-white p-2.5 rounded-lg border border-slate-100">“${d.advice_text}”</p>
+            </div>
+          `).join('');
+        }
+      }
     }
 
     function exportToCSV() {
@@ -1868,7 +1836,7 @@
     }
 
     // Admin PIN Security System (PIN: 1234)
-    let ADMIN_PIN = "1234";
+    let ADMIN_PIN = "2010";
 
     function handleResultsBtnClick() {
       if (sessionStorage.getItem('survey_admin_authenticated') === 'true') {
@@ -1916,7 +1884,7 @@
         const viewVal = params.get('view');
         const isAuth = sessionStorage.getItem('survey_admin_authenticated') === 'true';
 
-        if (adminVal === ADMIN_PIN || adminVal === 'true' || viewVal === 'results' || isAuth) {
+        if (adminVal === ADMIN_PIN || adminVal === '2010' || isAuth) {
           sessionStorage.setItem('survey_admin_authenticated', 'true');
           toggleView('results');
         }
