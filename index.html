@@ -1160,6 +1160,8 @@
       localStorage.removeItem('survey_responses_marriage_v1');
     } catch(e) {}
 
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxBl3FsuivaCg2m30Jd1KNDY2l0a9pGZ6F_-04dJq2FNl1h-cE7Hso9hcWhPJxsvYf23Q/exec";
+
     function getStorageData() {
       const stored = localStorage.getItem('survey_responses_marriage_real_v1');
       if (!stored) {
@@ -1357,6 +1359,24 @@
 
       saveResponse(newEntry);
 
+      // 1. Direct Real-Time Cloud Sync to Google Sheets
+      if (GOOGLE_SCRIPT_URL) {
+        try {
+          fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newEntry)
+          }).then(() => {
+            console.log('Survey submitted to Google Sheets Cloud Database');
+          }).catch(err => {
+            console.warn('Sheets sync note:', err);
+          });
+        } catch(err) {
+          console.warn('Sheets sync call error:', err);
+        }
+      }
+
       // Direct Private Email Delivery to chhayagorasiya@gmail.com
       try {
         const emailData = new FormData();
@@ -1437,7 +1457,40 @@
       `;
     }
 
-    function renderAnalytics() {
+        let isSyncingCloud = false;
+    async function fetchCloudResponses(showToast = false) {
+      if (!GOOGLE_SCRIPT_URL || isSyncingCloud) return;
+      isSyncingCloud = true;
+      const refreshBtn = document.getElementById('cloudRefreshBtn');
+      if (refreshBtn) {
+        refreshBtn.innerHTML = '⏳ Syncing...';
+        refreshBtn.disabled = true;
+      }
+      try {
+        const res = await fetch(GOOGLE_SCRIPT_URL);
+        if (res.ok) {
+          const cloudData = await res.json();
+          if (Array.isArray(cloudData) && cloudData.length > 0) {
+            localStorage.setItem('survey_responses_marriage_real_v1', JSON.stringify(cloudData));
+            renderAnalytics(true);
+            if (showToast) alert(`Cloud Sync Successful! Loaded ${cloudData.length} response(s) from Google Sheets.`);
+          } else if (showToast) {
+            alert('Cloud database is connected, but no records were returned yet.');
+          }
+        }
+      } catch (err) {
+        console.warn('Cloud fetch note:', err);
+      } finally {
+        isSyncingCloud = false;
+        if (refreshBtn) {
+          refreshBtn.innerHTML = '🔄 Refresh Cloud Data';
+          refreshBtn.disabled = false;
+        }
+      }
+    }
+
+    function renderAnalytics(skipCloudFetch = false) {
+      if (!skipCloudFetch) { fetchCloudResponses(false); }
       const allData = getStorageData();
       const totalAll = allData.length;
 
