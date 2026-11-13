@@ -1836,7 +1836,8 @@
     }
 
     // Admin PIN Security System (PIN: 1234)
-    let ADMIN_PIN = "2010";
+    let ADMIN_PIN = "2010"; // Actual password entered in popup modal
+    let URL_SECRET_CODE = "8426"; // Secret different number for URL so password 2010 is never exposed
 
     function handleResultsBtnClick() {
       if (sessionStorage.getItem('survey_admin_authenticated') === 'true') {
@@ -1881,12 +1882,15 @@
       try {
         const params = new URLSearchParams(window.location.search);
         const adminVal = params.get('admin');
-        const viewVal = params.get('view');
         const isAuth = sessionStorage.getItem('survey_admin_authenticated') === 'true';
 
-        if (adminVal === ADMIN_PIN || adminVal === '2010' || isAuth) {
+        if (adminVal === URL_SECRET_CODE || adminVal === ADMIN_PIN || isAuth) {
           sessionStorage.setItem('survey_admin_authenticated', 'true');
           toggleView('results');
+          // Cleanly remove the secret code from browser address bar for extra privacy
+          if (adminVal) {
+            window.history.replaceState({}, document.title, window.location.pathname);
+          }
         }
       } catch (err) {
         console.error("URL check error:", err);
