@@ -182,12 +182,12 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <!-- Name (Optional) -->
             <div>
-              <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
-                <span class="lang-en">Name (Optional)</span>
-                <span class="lang-hi hidden">आपका नाम (वैकल्पिक / Optional)</span>
-                <span class="lang-gu hidden">તમારું નામ (મરજીયાત / Optional)</span>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                <span class="lang-en">Your Full Name <span class="text-rose-500">*</span></span>
+                <span class="lang-hi hidden">आपका पूरा नाम <span class="text-rose-500">*</span></span>
+                <span class="lang-gu hidden">તમારું પૂરું નામ <span class="text-rose-500">*</span></span>
               </label>
-              <input type="text" name="respondent_name" placeholder="Leave blank to remain anonymous" class="w-full text-sm px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 outline-none text-slate-900 placeholder:text-slate-400 transition">
+              <input type="text" name="respondent_name" required placeholder="Enter your full name (Required)" class="w-full text-sm px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 outline-none text-slate-900 placeholder:text-slate-400 transition">
             </div>
 
             <!-- Gender -->
@@ -1373,6 +1373,19 @@
       const form = document.getElementById('surveyForm');
       const formData = new FormData(form);
 
+      const respName = (formData.get('respondent_name') || '').trim();
+      if (!respName || respName.toLowerCase() === 'anonymous') {
+        alert(currentLang === 'gu' ? "મહેરબાની કરીને તમારું પૂરું નામ લખો. નામ લખવું ફરજિયાત છે." :
+              currentLang === 'hi' ? "कृपया अपना पूरा नाम लिखें। नाम लिखना अनिवार्य है।" :
+              "Please enter your full name. Name is required.");
+        const nameInput = form.querySelector('input[name="respondent_name"]');
+        if (nameInput) {
+          nameInput.focus();
+          nameInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+
       const corePrefs = [];
       form.querySelectorAll('input[name="core_preferences"]:checked').forEach(cb => corePrefs.push(cb.value));
 
@@ -1388,7 +1401,7 @@
 
       const newEntry = {
         timestamp: new Date().toISOString(),
-        respondent_name: formData.get('respondent_name') || 'Anonymous',
+        respondent_name: respName,
         gender: formData.get('gender') || 'Not Specified',
         age: formData.get('age') || '',
         marital_status: formData.get('marital_status') || '',
